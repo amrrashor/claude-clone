@@ -22,7 +22,7 @@ const History = () => {
                         {!showHistory && <span className="text-xs font-semibold ml-2">Show</span>}
                     </div>
                 </h4>
-                <button className="flex items-center">View all <FaArrowRightLong className="ml-2 text-xs" /></button>
+                <button className="flex items-center duration-200 hover:text-white text-xs hover:underline cursor-pointer">View all <FaArrowRightLong className="ml-2 text-xs" /></button>
             </div>
 
             {showHistory && (
