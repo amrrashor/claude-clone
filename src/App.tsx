@@ -1,17 +1,19 @@
+import { Suspense } from 'react'
 import { Provider } from 'react-redux'
 import store from './store/configureStore'
 
 import './App.css'
-import { Suspense } from 'react'
+import AppRoutes from './routes/AppRoutes'
+
 
 
 function App() {
 
   return (
     <Provider store={store}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <div>App Routes</div>
-      </Suspense>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+        <AppRoutes />
+      {/* </Suspense> */}
     </Provider>
   )
 }
