@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { IoChatbubblesOutline } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
 import { FaArrowRightLong, FaChevronUp } from "react-icons/fa6";
 import { motion } from "motion/react"
 import { spring } from "motion";
