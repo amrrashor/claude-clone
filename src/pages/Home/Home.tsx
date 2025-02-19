@@ -3,6 +3,7 @@ import { SiClaude } from "react-icons/si";
 
 import Container from '../../components/Container/Container'
 import InputField from '../../components/InputField/InputField';
+import History from '../../components/Histroy/History';
 const Home = () => {
     return (
         <Container extraClasses='mt-10'>
@@ -13,6 +14,8 @@ const Home = () => {
             <h1 className='mb-10 text-5xl font-medium flex justify-center items-center'><SiClaude className='mr-3 text-[#da7756]' />Good Afternoon, Amr</h1>
             
             <InputField />
+
+            <History />
         </Container>
     )
 }
