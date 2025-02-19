@@ -20,9 +20,9 @@ const Layout = ({children} : {children:any}) => {
             {!showSideDrawer && <div className="fixed top-5 left-5 text-white text-lg">Claude</div>}
             <div
                 onMouseLeave={() => !isPinned && setShowSideDrawer(false)}
-                className={`pointer-events-auto z-50 bg-[#1a1918b3] fixed  left-0 h-full w-1/5 text-white p-5 shadow-2xl  transition-transform duration-300 ${
+                className={` rounded-br-2xl rounded-tr-2xl top-1 bottom-10 ease-in-out pointer-events-auto z-50 bg-[#1a1918b3] fixed  left-0 h-full w-1/5 text-white p-5 shadow-2xl  transition-transform duration-500 ${
                     showSideDrawer ? "translate-x-0" : "-translate-x-full"
-                } ${isPinned ? "top-0 bottom-0" : "top-1 bottom-10 rounded-br-2xl rounded-tr-2xl"}`}
+                }`}
             >
                 <SideDrawer togglePinDrawer={togglePinDrawer} isPinned={isPinned} />
             </div>

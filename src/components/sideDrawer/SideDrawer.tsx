@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { PiArrowLineRight } from "react-icons/pi";
 import { PiChatTeardropText } from "react-icons/pi";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { FaRegQuestionCircle } from "react-icons/fa";
 
 const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, isPinned:boolean}) => {
     return (
@@ -34,6 +34,14 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
             <div className=" text-center w-full flex justify-end flex-col h-full">
                 <div className="bg-[#282727] w-10/12 text-xs p-[2px] mx-auto rounded-tl-lg rounded-tr-lg border border-solid border-[rgba(255,255,255,0.1)]">Free Plan</div>
                 <div className="bg-[#1a1918] rounded-lg p-2 border border-solid border-[rgba(255,255,255,0.1)]">amrbahy1996@gmail.com</div>
+            </div>
+
+            <div className="flex justify-between items-end mt-1 text-xs">
+                <div className="text-white font-bold tracking-tighter">AA</div>
+                <div className="font-bold flex justify-center items-center">
+                    <FaRegQuestionCircle className="mr-1" />
+                    Help & Support
+                </div>
             </div>
         </div>
     )

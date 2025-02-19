@@ -11,9 +11,9 @@ function App() {
 
   return (
     <Provider store={store}>
-      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <Suspense fallback={<div>Loading...</div>}>
         <AppRoutes />
-      {/* </Suspense> */}
+      </Suspense>
     </Provider>
   )
 }

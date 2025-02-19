@@ -1,4 +1,3 @@
-import { lazy} from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import MainPage from '../pages/Home/Home'
 import Layout from "../components/Layout/Layout";

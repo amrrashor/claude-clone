@@ -4,6 +4,7 @@ import { SiClaude } from "react-icons/si";
 import Container from '../../components/Container/Container'
 import InputField from '../../components/InputField/InputField';
 import History from '../../components/Histroy/History';
+import {motion} from 'motion/react'
 const Home = () => {
     return (
         <Container extraClasses='mt-10'>
@@ -11,7 +12,22 @@ const Home = () => {
                 Using Limited Free Plan <a className='text-violet-400'>Upgrade</a>
             </div>
 
-            <h1 className='mb-10 text-5xl font-medium flex justify-center items-center'><SiClaude className='mr-3 text-[#da7756]' />Good Afternoon, Amr</h1>
+            <h1 className='mb-10 text-5xl font-medium flex justify-center items-center'>
+                <motion.div
+                    initial={{translateX:200}}
+                    animate={{translateX:0}}
+                    transition={{type:'spring', duration:1.5}}
+                >
+                    <SiClaude className='mr-3 text-[#da7756]' />
+                </motion.div>
+                <motion.span
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 0.5, delay:0.5}}
+                >
+                    Good Afternoon, Amr
+                </motion.span>
+            </h1>
             
             <InputField />
 
