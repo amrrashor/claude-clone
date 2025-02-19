@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Provider } from 'react-redux'
+import store from './store/configureStore'
+
 import './App.css'
+import { Suspense } from 'react'
+
 
 function App() {
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline ">
-        Hello world!
-      </h1>
-    </>
+    <Provider store={store}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div>App Routes</div>
+      </Suspense>
+    </Provider>
   )
 }
 
