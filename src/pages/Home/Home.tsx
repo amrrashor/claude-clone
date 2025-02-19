@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { SiClaude } from "react-icons/si";
 
 import Container from '../../components/Container/Container'
