@@ -17,6 +17,10 @@ const Home = () => {
                     initial={{translateX:200}}
                     animate={{translateX:0}}
                     transition={{type:'spring', duration:1.5}}
+
+                    // initial={{scale:0.5, rotate:0}}
+                    // animate={{scale:1, rotate:180}}
+                    // transition={{type:'spring', duration:1.5, repeat:Infinity}}
                 >
                     <SiClaude className='mr-3 text-[#da7756]' />
                 </motion.div>
