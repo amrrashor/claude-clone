@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SideDrawer from "../SideDrawer/SideDrawer"
 import { BsLayoutSidebar } from "react-icons/bs";
+import NameAvatar from "../NameAvatar/NameAvatar";
 
 const Layout = ({children} : {children:any}) => {
     const [showSideDrawer, setShowSideDrawer] = useState(false);
@@ -26,12 +27,12 @@ const Layout = ({children} : {children:any}) => {
             >
                 <SideDrawer togglePinDrawer={togglePinDrawer} isPinned={isPinned} />
             </div>
-            <>
+            <div className={`duration-200 ${isPinned ? "translate-x-5" : ""}`}>
                 {children}
-            </>
+            </div>
             {!showSideDrawer && (
                 <div className="fixed bottom-7 left-5">
-                    <div className="bg-white text-[#282727] font-bold mb-2 w-[30px] h-[30px] text-center rounded-full text-sm pt-1">AA</div>
+                    <NameAvatar />
                     <BsLayoutSidebar className="ml-[7px]"  />
                 </div>
             )}

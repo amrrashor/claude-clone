@@ -1,10 +1,25 @@
-import React from 'react'
+import { motion } from "motion/react"
 
-const Container = ({children, extraClasses}: {children:any, extraClasses?: string}) => {
+
+interface containerProps {
+    children: any;
+    extraClasses?:string;
+    initial?:{};
+    animate?: {};
+    exit?: {};
+    transition?: {};
+}
+const Container = ({children, extraClasses, initial, animate, exit, transition}: containerProps) => {
     return (
-        <div className={`${extraClasses} mx-auto w-3/4 h-full text-center`}>
+        <motion.div
+            initial={initial}
+            animate={animate}
+            exit={exit}
+            transition={transition}
+            className={`${extraClasses} mx-auto w-3/4 h-full text-center`}
+        >
             {children}
-        </div>
+        </motion.div>
     )
 }
 

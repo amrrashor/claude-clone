@@ -10,7 +10,7 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
             <div className='flex justify-between items-center w-full'>
                 <h5 className='text-white text-lg'>Claude</h5>
                 <div onClick={togglePinDrawer} className="hover:bg-[#1a1918] w-[35px] h-[35px] rounded-md duration-150 flex justify-center items-center cursor-pointer">
-                    <PiArrowLineRight   className={`${isPinned && "rotate-180"} duration-200 `} />
+                    <PiArrowLineRight  className={`${isPinned && "rotate-180"} duration-200 `} />
                 </div>
             </div>
 

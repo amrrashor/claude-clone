@@ -5,6 +5,7 @@ import Container from '../../components/Container/Container'
 import InputField from '../../components/InputField/InputField';
 import History from '../../components/Histroy/History';
 import {motion} from 'motion/react'
+import { Greeting } from "../../helpers/helpers";
 const Home = () => {
     return (
         <Container extraClasses='mt-10'>
@@ -17,10 +18,6 @@ const Home = () => {
                     initial={{translateX:200}}
                     animate={{translateX:0}}
                     transition={{type:'spring', duration:1.5}}
-
-                    // initial={{scale:0.5, rotate:0}}
-                    // animate={{scale:1, rotate:180}}
-                    // transition={{type:'spring', duration:1.5, repeat:Infinity}}
                 >
                     <SiClaude className='mr-3 text-[#da7756]' />
                 </motion.div>
@@ -29,7 +26,7 @@ const Home = () => {
                     animate={{opacity: 1}}
                     transition={{duration: 0.5, delay:0.5}}
                 >
-                    Good Afternoon, Amr
+                    {Greeting()}, Amr
                 </motion.span>
             </h1>
             
