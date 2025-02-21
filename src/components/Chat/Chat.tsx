@@ -17,29 +17,33 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
     const [isGenerating, setIsGenerating] = useState(true);
     const [initialText, setInitialText] = useState("");
 
-    const amr  = [
-        {
-            id:1,
-            question:"hello world",
-            answer:displayedText
-        }
-    ]
     const typingSpeed = 30;
 
     const fullText = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore sit itaque tempora reprehenderit ipsa. Alias reiciendis suscipit sint magnam tempore tempora aliquid, excepturi nesciunt natus ratione laudantium omnis amet cupiditate!`
     const initialfullText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus omnis numquam vero ab laudantium odio non, eveniet exercitationem optio ea temporibus recusandae enim atque pariatur excepturi vel cupiditate, ipsa explicabo."
 
     useEffect(() => {
-            const userMessage = messages[messages.length - 1];
-            setChatHistory(prev => [...prev, { text: userMessage, isUser: true }]);
-            
-            setIsGenerating(true);
-            setTimeout(() => {
-                setChatHistory(prev => [...prev, { text: fullText, isUser: false }]);
-                setDisplayedText("");
-            }, 500);
-    }, [messages]);
+        if (messages.length === 0) return;
+    
+        const userMessage = messages[messages.length - 1];
+    
+        if (chatHistory.length > 0 && chatHistory[chatHistory.length - 1].text === userMessage) {
+            return;
+        }
+    
+        setChatHistory(prev => [...prev, { text: userMessage, isUser: true }]);
+        setIsGenerating(true);
+        const chatTimer = setTimeout(() => {
+            setChatHistory(prev => [...prev, { text: fullText, isUser: false }]);
+            setDisplayedText("");
+        }, 500);
 
+        return () => {
+            clearTimeout(chatTimer);
+        }
+    }, [messages]);
+    
+    
     useEffect(() => {
         const lastMessage = chatHistory[chatHistory.length - 1];
         if (lastMessage && !lastMessage.isUser) {
@@ -58,8 +62,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
             return () => clearInterval(interval);
         }
     }, [chatHistory]);
-
-    //handle initial text
+    
     useEffect(() => {
         let index = 0
         const interval = setInterval(() => {
@@ -67,7 +70,8 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         setInitialText(prev => prev + initialfullText[index])
                         index++
                     } else {
-                        clearInterval(interval)
+                        clearInterval(interval);
+                        setIsGenerating(false)
                     }
                 }, typingSpeed)
         
@@ -85,8 +89,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                 {initialText}
             </div>
 
-
-            {/* {chatHistory.map((message, index) => (
+            {chatHistory.map((message, index) => (
                 message.isUser ? (
                     <div key={message.text} className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'>
                         <NameAvatar />
@@ -99,7 +102,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         </div>
                     </div>
                 )
-            ))} */}
+            ))}
             {isGenerating && (
                 <motion.div 
                     className="w-[30px] h-[30px]"

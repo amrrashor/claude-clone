@@ -18,13 +18,13 @@ const Layout = ({children} : {children:any}) => {
         setShowSideDrawer(true);
     };
     return (
-        <div>
+        <div className="h-full">
             <div
                 className="fixed h-screen top-0 left-0 w-1/5 z-50"
                 onMouseEnter={() =>!isPinned && setShowSideDrawer(true)}
             />
 
-            <div className="flex justify-between">
+            <div className="flex justify-between pt-2">
                 <div className=" text-white text-lg">Claude</div>
                 {chatPageIndicator && (
                     <motion.div
