@@ -5,18 +5,38 @@ import NameAvatar from "../NameAvatar/NameAvatar";
 import { useLocation } from "react-router";
 import {motion} from 'motion/react';
 import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { HiOutlineAdjustmentsVertical } from "react-icons/hi2";
 import { PiChatTeardropText } from "react-icons/pi";
+import { useDispatch, useSelector } from "react-redux";
+import { ChatActons } from "../../store/Chat/Chat.slice";
+import ChatControl from "../ChatControl/ChatControl";
+import { useNavigate } from "react-router";
+import CodeWindow from "../CodeWindow/CodeWindow";
+
 const Layout = ({children} : {children:any}) => {
     const location  = useLocation()
-    const chatPageIndicator = location.pathname.split("/")[1]
+    const chatPageIndicator = location.pathname.split("/")[1];
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const {chatControl, codeWindow} = useSelector((state:any) => state.chat)
     const [showSideDrawer, setShowSideDrawer] = useState(false);
     const [isPinned, setIsPinned] = useState(false); 
+    const [starred, setStarred] = useState(false);
 
+    
     const togglePinDrawer = () => {
         setIsPinned((prev) => !prev);
         setShowSideDrawer(true);
     };
+
+    const handleOpenControl = () => {
+        dispatch(ChatActons.setShowCodeWindow(false));
+        dispatch(ChatActons.setShowChatControl(!chatControl))
+    };
+
+    console.log({chatControl})
     return (
         <div className="h-full">
             <div
@@ -34,13 +54,13 @@ const Layout = ({children} : {children:any}) => {
                         exit={{opacity:0, scale:0.9}}
                         transition={{duration:0.5, delay:0.1, type:'spring'}}
                     >
-                        <div className="ml-5 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
-                            <FaRegStar  />
+                        <div onClick={() => setStarred(!starred)} className="ml-5 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
+                            {starred ? <FaStar fill="#da7756" /> : <FaRegStar />}
                         </div>
-                        <div className="cursor-pointer ml-5 w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
+                        <div onClick={handleOpenControl} className={`${chatControl ? "bg-[#1a1918]" : ""} cursor-pointer ml-5 w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md`}>
                             <HiOutlineAdjustmentsVertical />
                         </div>
-                        <div className="bg-[#da7756] cursor-pointer rounded-full w-[35px] h-[35px] flex justify-center items-center ml-5">
+                        <div onClick={() => navigate("/")} className="bg-[#da7756] cursor-pointer rounded-full w-[35px] h-[35px] flex justify-center items-center ml-5">
                             <PiChatTeardropText /> 
                         </div>
                     </motion.div>
@@ -55,12 +75,14 @@ const Layout = ({children} : {children:any}) => {
             >
                 <SideDrawer togglePinDrawer={togglePinDrawer} isPinned={isPinned} />
             </div>
-            <div>
+            <div className="flex justify-center items-start ">
                 {children}
+                {chatControl && <ChatControl />}
+                {codeWindow && <CodeWindow />}
             </div>
             {!showSideDrawer && (
                 <div className="fixed bottom-7 left-5">
-                    <NameAvatar />
+                    <NameAvatar className="mb-3" />
                     <BsLayoutSidebar className="ml-[7px]"  />
                 </div>
             )}

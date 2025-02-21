@@ -5,10 +5,12 @@ import { createSlice } from "@reduxjs/toolkit";
 type chatSliceProps = {
     title: string;
     chatControl:boolean;
+    codeWindow: boolean;
 }
 const initialState:chatSliceProps = {
     title:"",
     chatControl:false,
+    codeWindow:false,
 
 };
 
@@ -22,6 +24,9 @@ const ChatSlice = createSlice({
         },
         setShowChatControl(state, action) {
             state.chatControl = action.payload
+        },
+        setShowCodeWindow(state, action) {
+            state.codeWindow = action.payload
         },
         reset() {
             initialState

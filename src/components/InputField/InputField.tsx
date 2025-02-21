@@ -1,6 +1,7 @@
 import { CiCamera } from "react-icons/ci";
 import { TiAttachment } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
+import { motion } from "motion/react"
 
 import CustomTextArea from '../CustomTextArea/CustomTextArea';
 import { useEffect, useState } from "react";
@@ -31,7 +32,11 @@ const InputField = () => {
     };
 
     return (
-        <>
+        <motion.div
+        initial={{opacity:0, translateY:15}}
+        animate={{opacity:1, translateY:0}}
+        transition={{duration:0.5, delay:0.1}}
+        >
             <CustomTextArea />
             <div className=' duration-300 px-3 py-6 bg-[#282727] w-7/12 mx-auto h-max rounded-b-2xl flex flex-col items-start'>
                 <div className={`w-full flex items-end justify-between ${(preview && "mb-5" || selectedFile && "mb-5")} `}>
@@ -71,7 +76,7 @@ const InputField = () => {
                     </div>
                 ) : null}
             </div>
-        </>
+        </motion.div>
     )
 }
 

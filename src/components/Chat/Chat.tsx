@@ -41,7 +41,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
         const chatTimer = setTimeout(() => {
             setChatHistory(prev => [...prev, { text: fullText, isUser: false }]);
             setDisplayedText("");
-        }, 500);
+        }, 1000);
 
         return () => {
             clearTimeout(chatTimer);
