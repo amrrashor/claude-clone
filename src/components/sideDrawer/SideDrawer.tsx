@@ -14,7 +14,7 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
                 </div>
             </div>
 
-            <button className='cursor-pointer flex items-center text-[#da7756] text-lg px-3 py-1 bg-[#1a1918] w-full mt-5 rounded-lg'><PiChatTeardropText className='mr-3' /> Start New Chat</button>
+            <button className='cursor-pointer flex items-center text-[#da7756] text-lg px-3 py-1 bg-[#252423] w-full mt-5 rounded-lg'><PiChatTeardropText className='mr-3' /> Start New Chat</button>
 
             <div className='mt-5'>
                 <h4 className='mb-2 font-bold'>Starred</h4>
