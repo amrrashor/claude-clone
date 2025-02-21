@@ -97,27 +97,48 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
 
     return (
         <div className='w-3/4 mx-auto overflow-y-scroll max-h-[520px] h-3/4 scroll p-10'>
-            <div className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'>
+            <motion.div
+                initial={{translateY:10, opacity:0}}
+                animate={{translateY:0, opacity:1}}
+                transition={{duration:0.5, delay:0.1}}
+                className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'
+            >
                 <NameAvatar />
                 <div className='ml-5'>{id}</div>
-            </div>
+            </motion.div>
 
-            <div className='relative text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
+            <motion.div
+                initial={{translateY:10, opacity:0}}
+                animate={{translateY:0, opacity:1}}
+                transition={{duration:0.5, delay:0.5}}
+                className='relative text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'
+            >
                 <CodeSnippet />
                 {initialText}
                 {chatHistory?.length === 0 && !isGenerating ?  (
                     <FeedbackBox handleCopied={handleCopied} copied={copied} />
                 ) : ""}
-            </div>
+            </motion.div>
 
             {chatHistory.map((message, index) => (
                 message.isUser ? (
-                    <div key={message.text + 1} className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'>
+                    <motion.div
+                        initial={{translateY:10, opacity:0}}
+                        animate={{translateY:0, opacity:1}}
+                        transition={{duration:0.5, delay:0.1}}
+                        key={message.text + 1} 
+                        className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'
+                    >
                         <NameAvatar />
                         <div className='ml-5'>{message.text}</div>
-                    </div>
+                    </motion.div>
                 ) : (
-                    <div className='relative' key={message.text + 2}>
+                    <motion.div
+                        initial={{translateY:10, opacity:0}}
+                        animate={{translateY:0, opacity:1}}
+                        transition={{duration:0.5, delay:0.5}}
+                        className='relative' key={message.text + 2}
+                    >
                         <div  className='text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
                             {index === chatHistory.length - 1 ? displayedText : message.text}
                             {index === chatHistory.length - 1 && !isGenerating ? (
@@ -125,7 +146,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                                 ) :
                             ""}
                         </div>
-                    </div>
+                    </motion.div>
                 )
             ))}
             {isGenerating && (

@@ -56,7 +56,7 @@ const Chat = () => {
             <div>
                 <div className="flex items-center justify-center  text-lg text-white font-bold ">
                     <IoChatbubblesOutline className="mr-3" />
-                    <span>Answering the {id}</span>
+                    <span>Answering the {id.substring(0,15)}</span>
                 </div>
                 <ChatComponent messages={messages} />
             </div>
