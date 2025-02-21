@@ -17,13 +17,15 @@ const Chat = () => {
     const [messages, setMessages] = useState<string[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
-    const {id} = useParams()
+    const {id} = useParams();
+    
     useEffect(() => {
         document.title = id;
         return () => {
             document.title = id
         }
     }, []);
+
     const handleSubmit = () => {
         if (userInput.trim()) {
             setMessages(prev => [...prev, userInput]);
@@ -100,11 +102,11 @@ const Chat = () => {
                     ) : null}
                 </>
                 <div className="absolute top-2 right-2 flex items-center">
-                    <div className="h-[32px] flex items-center justify-center">
-                        <div className="mr-3 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
+                    <div className="h-[32px] flex items-center justify-center ">
+                        <div className="mr-3 cursor-pointer w-[35px] h-[35px] bg-[#3d3d3a] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
                             <CiCamera className='cursor-pointer w-1/2' />
                         </div>
-                        <label htmlFor="file-upload" className="mr-3 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
+                        <label htmlFor="file-upload" className="mr-3 bg-[#3d3d3a] cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
                             <TiAttachment />
                         </label>
                         <input
