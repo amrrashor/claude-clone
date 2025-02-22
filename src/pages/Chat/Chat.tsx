@@ -12,6 +12,7 @@ import { ChatActons } from "../../store/Chat/Chat.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { FaChevronDown } from "react-icons/fa";
 import CustomModal from "../../components/CustomModal/CustomModal";
+import Loader from "../../components/Loader/Loader";
 const Chat = () => {
     const dispatch = useDispatch();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,6 +25,7 @@ const Chat = () => {
     const [titleOptions, setTitleOptions] = useState<boolean | null>(false);
     const [showRenameModal, setShowRenameModal] = useState<boolean | null>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean | null>(false);
+    const [isLoading, setLoading] = useState<boolean | null>(true)
     const {id} = useParams();
     const {title} = useSelector((state:any) => state.chat);
     
@@ -49,6 +51,16 @@ const Chat = () => {
             if (timer) clearTimeout(timer);
         }
     }, [dispatch]);
+
+    useEffect(() => {
+        let timer;
+
+        timer = setTimeout(() => {
+            setLoading(false)
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleSubmit = () => {
         if (userInput.trim()) {
@@ -76,6 +88,8 @@ const Chat = () => {
     };
 
     return (
+        isLoading ? <Loader />
+        :
         <>
             <CustomModal
                 isRename={true} 

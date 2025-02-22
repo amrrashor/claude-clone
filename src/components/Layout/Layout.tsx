@@ -17,6 +17,7 @@ import CodeWindow from "../CodeWindow/CodeWindow";
 const Layout = ({children} : {children:any}) => {
     const location  = useLocation()
     const chatPageIndicator = location.pathname.split("/")[1];
+    const currentChat = location.pathname.split("/")[2];
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -36,7 +37,16 @@ const Layout = ({children} : {children:any}) => {
         dispatch(ChatActons.setShowChatControl(!chatControl))
     };
 
-    console.log({chatControl})
+    const handleFavorites = () => {
+        if (starred) {
+            setStarred(false);
+            dispatch(ChatActons.setFavouriteChat(""));
+        } else {
+            setStarred(true);
+            dispatch(ChatActons.setFavouriteChat(currentChat));
+        }
+    };
+
     return (
         <div className="h-full">
             <div
@@ -54,7 +64,7 @@ const Layout = ({children} : {children:any}) => {
                         exit={{opacity:0, scale:0.9}}
                         transition={{duration:0.5, delay:0.1, type:'spring'}}
                     >
-                        <div onClick={() => setStarred(!starred)} className="ml-5 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
+                        <div onClick={handleFavorites} className="ml-5 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
                             {starred ? <FaStar fill="#da7756" /> : <FaRegStar />}
                         </div>
                         <div onClick={handleOpenControl} className={`${chatControl ? "bg-[#1a1918]" : ""} cursor-pointer ml-5 w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md`}>

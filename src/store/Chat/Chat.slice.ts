@@ -4,11 +4,13 @@ type chatSliceProps = {
     title: string;
     chatControl:boolean;
     codeWindow: boolean;
+    favouriteChat:string
 }
 const initialState:chatSliceProps = {
     title:"",
     chatControl:false,
     codeWindow:false,
+    favouriteChat:""
 };
 
 const ChatSlice = createSlice({
@@ -23,6 +25,9 @@ const ChatSlice = createSlice({
         },
         setShowCodeWindow(state, action) {
             state.codeWindow = action.payload
+        },
+        setFavouriteChat(state, action) {
+            state.favouriteChat = action.payload;
         },
         reset() {
             initialState

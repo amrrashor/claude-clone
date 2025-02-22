@@ -80,6 +80,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                 return () => clearInterval(interval)
     }, []);
     
+    
     const handleCopied =async () => {
         const textToCopy = chatHistory?.length > 0 ? displayedText : initialText
         try {
@@ -147,22 +148,24 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                     </motion.div>
                 )
             ))}
-            {isGenerating && (
+            <div className='flex items-center justify-between'>
                 <motion.div 
                     className="w-[30px] h-[30px]"
-                        animate={{
-                            scale: [0.8, 1.2, 0.8],
-                            rotate: [0, 360]
-                        }}
-                        transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
+                    animate={isGenerating ? {
+                        scale: [0.8, 1.2, 0.8],
+                        rotate: [0, 360]
+                    }: {}}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
                 >
-                    <SiClaude className='w-full h-full absolute top-0 left-0 bottom-0 right-0 text-[#da7756] text-3xl' />
+                    <SiClaude className=' absolute w-[30px] h-[30px] text-[#da7756] text-3xl' />
                 </motion.div>
-            )}
+                {!isGenerating && <div className='underline text-white text-xs'>Claude can make mistakes. Please double-check responses.</div>}
+            </div>
+
         </div>
     );
 };

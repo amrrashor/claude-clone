@@ -3,8 +3,10 @@ import { PiChatTeardropText } from "react-icons/pi";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaRegQuestionCircle } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, isPinned:boolean}) => {
+    const {favouriteChat} = useSelector((state: any) => state.chat)
     return (
         <div className="z-50 h-5/12">
             <div className='flex justify-between items-center w-full'>
@@ -18,9 +20,13 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
 
             <div className='mt-5'>
                 <h4 className='mb-2 font-bold'>Starred</h4>
-                <div className='flex justify-center items-center text-sm text-[rgba(255,255,255,0.5)] border border-dotted border-[rgba(255,255,255,0.1)] w-full h-[100px] rounded-lg'>
-                    Star chats you use often
-                </div>
+                {favouriteChat ? (
+                    <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />{favouriteChat}</div>
+                ) : (
+                    <div className='flex justify-center items-center text-sm text-[rgba(255,255,255,0.5)] border border-dotted border-[rgba(255,255,255,0.1)] w-full h-[100px] rounded-lg'>
+                        Star chats you use often
+                    </div>
+                )}
             </div>
 
             <div className="mt-5">
