@@ -5,10 +5,7 @@ import {motion} from'motion/react'
 import { SiClaude } from 'react-icons/si';
 import { useParams, useSearchParams } from 'react-router';
 import { FaRegClipboard } from "react-icons/fa6";
-import { BiLike } from "react-icons/bi";
-import { AiOutlineDislike } from "react-icons/ai";
 import FeedbackBox from '../FeedbackBox/FeedbackBox';
-import { IoCodeSlash } from "react-icons/io5";
 import CodeSnippet from '../CodeSnippet/CodeSnippet';
 interface Message {
     text: string;
@@ -140,6 +137,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         className='relative' key={message.text + 2}
                     >
                         <div  className='text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
+                            <CodeSnippet />
                             {index === chatHistory.length - 1 ? displayedText : message.text}
                             {index === chatHistory.length - 1 && !isGenerating ? (
                                 <FeedbackBox  handleCopied={handleCopied} copied={copied}/>

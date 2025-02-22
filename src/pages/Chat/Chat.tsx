@@ -8,8 +8,11 @@ import { FaArrowUp } from "react-icons/fa6";
 import { CiCamera } from "react-icons/ci";
 import { TiAttachment } from "react-icons/ti";
 import { useParams } from "react-router";
+import { ChatActons } from "../../store/Chat/Chat.slice";
+import { useDispatch } from "react-redux";
 
 const Chat = () => {
+    const dispatch = useDispatch();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     
     const [showLabels, setShowLabels] = useState(false);
@@ -31,6 +34,7 @@ const Chat = () => {
             setMessages(prev => [...prev, userInput]);
             setUserInput("");
             setShowLabels(false);
+            dispatch(ChatActons.setShowCodeWindow(true));
         }
     }
 
@@ -51,6 +55,11 @@ const Chat = () => {
         setSelectedFile(null)
     };
 
+    const handleShowCodeWindow = () => {
+        setTimeout(() => {
+            dispatch(ChatActons.setShowCodeWindow(true));
+        }, 200);
+    }
     return (
         <Container extraClasses="relative p-4 h-[90vh]">
             <div>
@@ -98,7 +107,6 @@ const Chat = () => {
                                     <div className="absolute px-2 bottom-[-10px] bg-[#E3DAC9] font-extrabold shadow-2xl text-xs rounded-sm text-[rgba(0,0,0,0.7)]">document</div>
                                 </div>
                             </motion.div>
-                            
                     ) : null}
                 </>
                 <div className="absolute top-2 right-2 flex items-center">
@@ -135,12 +143,13 @@ const Chat = () => {
                     className="w-full border-none outline-none h-[80px] text-wrap"
                     onChange={(e) => {
                         setShowLabels(e.target.value.length > 0);
-                        setUserInput(e.target.value)
+                        setUserInput(e.target.value);
                     }}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();
                             handleSubmit();
+                            handleShowCodeWindow();
                         }
                     }}
                 />
