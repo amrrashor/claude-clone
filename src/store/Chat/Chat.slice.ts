@@ -6,13 +6,15 @@ type chatSliceProps = {
     codeWindow: boolean;
     favouriteChat:string;
     editiedQuestion: string;
+    reGenerate:boolean;
 }
 const initialState:chatSliceProps = {
     title:"",
     chatControl:false,
     codeWindow:false,
     favouriteChat:"",
-    editiedQuestion:""
+    editiedQuestion:"",
+    reGenerate:false,
 };
 
 const ChatSlice = createSlice({
@@ -33,6 +35,9 @@ const ChatSlice = createSlice({
         },
         setEditiedQuestion(state, action) {
             state.editiedQuestion = action.payload;
+        },
+        reGenerateText(state, action) {
+            state.reGenerate = action.payload;
         },
         reset() {
             initialState

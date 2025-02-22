@@ -53,7 +53,7 @@ const Layout = ({children} : {children:any}) => {
         <div className="h-full">
             <NewChatModal showModal={showModal} setShowModal={setShowModal} />
             <div
-                className="fixed h-screen top-0 left-0 w-1/5 z-50"
+                className="fixed h-screen top-0 left-0 w-[10px] z-50"
                 onMouseEnter={() =>!isPinned && setShowSideDrawer(true)}
             />
 
@@ -88,7 +88,7 @@ const Layout = ({children} : {children:any}) => {
             >
                 <SideDrawer togglePinDrawer={togglePinDrawer} isPinned={isPinned} />
             </div>
-            <div className="flex justify-center items-start ">
+            <div className="flex justify-center items-start">
                 {children}
                 {chatControl && <ChatControl />}
                 {codeWindow && <CodeWindow />}

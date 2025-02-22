@@ -26,7 +26,7 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
             <div className='mt-5'>
                 <h4 className='mb-2 font-bold'>Starred</h4>
                 {favouriteChat ? (
-                    <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />{favouriteChat}</div>
+                    <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />{favouriteChat?.substring(0,12)}</div>
                 ) : (
                     <div className='flex justify-center items-center text-sm text-[rgba(255,255,255,0.5)] border border-dotted border-[rgba(255,255,255,0.1)] w-full h-[100px] rounded-lg'>
                         Star chats you use often

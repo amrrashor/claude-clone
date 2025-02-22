@@ -13,22 +13,23 @@ import Loader from "../../components/Loader/Loader";
 import NewChatModal from "../../components/NewChatModal/NewChatModal";
 const Home = () => {
     const dispatch = useDispatch();
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(true);
+    useEffect(() => {
+        document.title = "Claude"
+    }, []);
+    
     useEffect(() => {
         dispatch(ChatActons.reset());
         dispatch(ChatActons.setShowCodeWindow(false));
     }, []);
 
     useEffect(() => {
-        let timer;
-
+        let timer:number;
         timer = setTimeout(() => {
             setLoading(false)
         }, 1000);
-
         return () => clearTimeout(timer);
     }, []);
-
 
     return (
         <>  

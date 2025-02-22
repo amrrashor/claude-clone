@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import NameAvatar from '../NameAvatar/NameAvatar'
 import {motion} from'motion/react'
@@ -15,7 +15,8 @@ interface Message {
 }
 
 const ChatComponent = ({ messages }: { messages: string[] }) => {
-    const { title, editiedQuestion } = useSelector((state: any) => state.chat);
+    const dispatch = useDispatch();
+    const { title, reGenerate} = useSelector((state: any) => state.chat);
     const { id } = useParams();
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
     const [displayedText, setDisplayedText] = useState("");
@@ -54,6 +55,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
     }, [messages]);
     
     
+    //useEffect for any other text generating
     useEffect(() => {
         const lastMessage = chatHistory[chatHistory.length - 1];
         if (lastMessage && !lastMessage.isUser) {
@@ -73,23 +75,23 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
         }
     }, [chatHistory]);
     
+    //useEffect for initial text only
     useEffect(() => {
         let index = 0
         const interval = setInterval(() => {
-                    if (index < initialfullText.length) {
-                        setInitialText(prev => prev + initialfullText[index])
-                        index++
-                    } else {
-                        clearInterval(interval);
-                        setIsGenerating(false)
-                    }
-                }, typingSpeed)
+            if (index < initialfullText.length) {
+                setInitialText(prev => prev + initialfullText[index])
+                index++
+            } else {
+                clearInterval(interval);
+                setIsGenerating(false)
+            }
+        }, typingSpeed);
+        return () => clearInterval(interval);
         
-                return () => clearInterval(interval)
-    }, []);
+    }, [dispatch]);
     
-    
-    const handleCopied =async () => {
+    const handleCopied = async () => {
         const textToCopy = chatHistory?.length > 0 ? displayedText : initialText
         try {
             await navigator.clipboard.writeText(textToCopy);
