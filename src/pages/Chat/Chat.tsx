@@ -29,12 +29,27 @@ const Chat = () => {
         }
     }, []);
 
+    useEffect(() => {
+        let timer;
+
+        const handleShowCodeWindow = () => {
+            timer = setTimeout(() => {
+                dispatch(ChatActons.setShowCodeWindow(true));
+            }, 4000);
+        };
+
+        handleShowCodeWindow();
+
+        return () => {
+            if (timer) clearTimeout(timer);
+        }
+    }, [dispatch]);
+
     const handleSubmit = () => {
         if (userInput.trim()) {
             setMessages(prev => [...prev, userInput]);
             setUserInput("");
             setShowLabels(false);
-            dispatch(ChatActons.setShowCodeWindow(true));
         }
     }
 
@@ -55,11 +70,6 @@ const Chat = () => {
         setSelectedFile(null)
     };
 
-    const handleShowCodeWindow = () => {
-        setTimeout(() => {
-            dispatch(ChatActons.setShowCodeWindow(true));
-        }, 200);
-    }
     return (
         <Container extraClasses="relative p-4 h-[90vh]">
             <div>
@@ -149,7 +159,6 @@ const Chat = () => {
                         if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();
                             handleSubmit();
-                            handleShowCodeWindow();
                         }
                     }}
                 />
