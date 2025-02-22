@@ -14,6 +14,7 @@ import { FaChevronDown } from "react-icons/fa";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import Loader from "../../components/Loader/Loader";
 import ResponseStyle from "../../components/ResponseStyle/ResponseStyle";
+import { startScreenShare } from "../../helpers/helpers";
 const Chat = () => {
     const dispatch = useDispatch();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -169,7 +170,7 @@ const Chat = () => {
                     <div className="absolute top-2 right-2 flex items-center">
                         <div className="h-[32px] flex items-center justify-center ">
                             <div className="mr-3 cursor-pointer w-[35px] h-[35px] bg-[#3d3d3a] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
-                                <CiCamera className='cursor-pointer w-1/2' />
+                                <CiCamera className='cursor-pointer w-1/2' onClick={startScreenShare} />
                             </div>
                             <label htmlFor="file-upload" className="mr-3 bg-[#3d3d3a] cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
                                 <TiAttachment />

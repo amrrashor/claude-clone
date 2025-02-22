@@ -4,10 +4,15 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { FaArrowRightLong, FaChevronUp } from "react-icons/fa6";
 import { motion } from "motion/react"
 import { spring } from "motion";
+import { useNavigate, useParams } from "react-router";
 
 const History = () => {
+    const navigate = useNavigate();
+    const { id } = useParams();
     const [showHistory, setShowHistory] = useState(true);
-
+    const navigateToChat = () => {
+        navigate(`/chat/${id}`);
+    }
     return (
         <div className="mt-10 w-7/12 mx-auto">
             <div className="flex justify-between">
@@ -27,11 +32,12 @@ const History = () => {
 
             {showHistory && (
                 <motion.div
-                    className="mt-6 text-left pt-5 px-4 bg-[#323131] border border-solid border-[rgba(255,255,255,0.1)] w-[250px] h-[150px] rounded-2xl"
+                    className="cursor-pointer mt-6 text-left pt-5 px-4 bg-[#323131] border border-solid border-[rgba(255,255,255,0.1)] w-[250px] h-[150px] rounded-2xl"
                     initial={{opacity:0, scale:0}}
                     animate={{opacity:1, scale:1}}
                     exit={{opacity:0, scale:0}}
                     transition={spring}
+                    onClick={navigateToChat}
                 >
                     <IoChatbubblesOutline className="mr-3 mb-2" />
                     <div className="mb-1 text-[16px]">Lorem ipsum, dolor sit ipsum, dolor sit ipsum, dolor sit ...</div>

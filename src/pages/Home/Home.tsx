@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { ChatActons } from "../../store/Chat/Chat.slice";
 import Loader from "../../components/Loader/Loader";
+import NewChatModal from "../../components/NewChatModal/NewChatModal";
 const Home = () => {
     const dispatch = useDispatch();
     const [isLoading, setLoading] = useState(true)
@@ -30,7 +31,7 @@ const Home = () => {
 
 
     return (
-        <>
+        <>  
             {isLoading ? (
                 <Loader />
             ) : (

@@ -13,18 +13,20 @@ import { ChatActons } from "../../store/Chat/Chat.slice";
 import ChatControl from "../ChatControl/ChatControl";
 import { useNavigate } from "react-router";
 import CodeWindow from "../CodeWindow/CodeWindow";
+import NewChatModal from "../NewChatModal/NewChatModal";
 
 const Layout = ({children} : {children:any}) => {
     const location  = useLocation()
     const chatPageIndicator = location.pathname.split("/")[1];
     const currentChat = location.pathname.split("/")[2];
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const {chatControl, codeWindow} = useSelector((state:any) => state.chat)
     const [showSideDrawer, setShowSideDrawer] = useState(false);
     const [isPinned, setIsPinned] = useState(false); 
     const [starred, setStarred] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     
     const togglePinDrawer = () => {
@@ -49,6 +51,7 @@ const Layout = ({children} : {children:any}) => {
 
     return (
         <div className="h-full">
+            <NewChatModal showModal={showModal} setShowModal={setShowModal} />
             <div
                 className="fixed h-screen top-0 left-0 w-1/5 z-50"
                 onMouseEnter={() =>!isPinned && setShowSideDrawer(true)}
@@ -70,7 +73,7 @@ const Layout = ({children} : {children:any}) => {
                         <div onClick={handleOpenControl} className={`${chatControl ? "bg-[#1a1918]" : ""} cursor-pointer ml-5 w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md`}>
                             <HiOutlineAdjustmentsVertical />
                         </div>
-                        <div onClick={() => navigate("/")} className="bg-[#da7756] cursor-pointer rounded-full w-[35px] h-[35px] flex justify-center items-center ml-5">
+                        <div onClick={() => setShowModal(true)} className="bg-[#da7756] cursor-pointer rounded-full w-[35px] h-[35px] flex justify-center items-center ml-5">
                             <PiChatTeardropText /> 
                         </div>
                     </motion.div>

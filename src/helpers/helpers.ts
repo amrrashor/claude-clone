@@ -10,4 +10,12 @@ export const  Greeting = () => {
     }
 }
 
-
+export const  startScreenShare = async () => {
+    try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        const videoElement = document.getElementById("screen-video") as any;
+        videoElement.srcObject = stream;
+    } catch (error) {
+        console.error("Error sharing screen:", error);
+    }
+}

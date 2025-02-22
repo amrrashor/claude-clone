@@ -28,7 +28,7 @@ const ResponseStyle = ({position}: {position:string}) => {
     const [defaultValue, setDefaultValue] = useState("Choose Style")
     return (
         <div>
-            <div onClick={() => setShowMenu(!showMenu)} className="text-[rgba(255,255,255,0.6)] flex items-center cursor-pointer duration-150 hover:bg-[#1a1918] rounded-md px-2">
+            <div onClick={() => setShowMenu(!showMenu)} className="ml-2 text-[rgba(255,255,255,0.6)] flex items-center cursor-pointer duration-150 hover:bg-[#1a1918] rounded-md px-2">
                 <FaFeatherAlt />
                 <p className="mx-1">{defaultValue}</p>
                 <FaChevronDown className={`duration-150 ${showMenu ? "rotate-180" : ""}`} />
@@ -37,7 +37,7 @@ const ResponseStyle = ({position}: {position:string}) => {
                 <motion.div
                     initial={{translateY:10}}
                     animate={{translateY:0}}
-                    className={`${position} top-[-100px] absolute bg-[#282727] p-5 rounded-md`}
+                    className={`${position == "bottom" ? "bottom-[-180px]" : "top-[-100px]" }  absolute bg-[#282727] p-5 rounded-md`}
                 >
                     <h4 className="text-[16px] font-semibold">How should Claude write responses?</h4>
                     <div className="flex items-center">

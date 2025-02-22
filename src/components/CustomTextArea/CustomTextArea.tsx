@@ -56,7 +56,7 @@ const CustomTextArea = () => {
         <div className='flex justify-between items-center'>
             <div className='text-left text-[rgba(255,255,255,0.5)] flex  items-start'>
                 <p>Claude 3.5 Sonnet</p>
-                <ResponseStyle />
+                <ResponseStyle position='bottom' />
             </div>
         {showLabels && (
             <motion.p
