@@ -3,23 +3,31 @@ import { useState, useEffect } from 'react'
 import NameAvatar from '../NameAvatar/NameAvatar'
 import {motion} from'motion/react'
 import { SiClaude } from 'react-icons/si';
-import { useParams, useSearchParams } from 'react-router';
-import { FaRegClipboard } from "react-icons/fa6";
+import { useParams } from 'react-router';
 import FeedbackBox from '../FeedbackBox/FeedbackBox';
 import CodeSnippet from '../CodeSnippet/CodeSnippet';
+import { FaPencilAlt } from "react-icons/fa";
+import EditQuestion from '../EditQuestion/EditQuestion';
+import { ChatActons } from '../../store/Chat/Chat.slice';
 interface Message {
     text: string;
     isUser: boolean;
 }
 
 const ChatComponent = ({ messages }: { messages: string[] }) => {
-    const { title } = useSelector((state: any) => state.chat);
+    const { title, editiedQuestion } = useSelector((state: any) => state.chat);
     const { id } = useParams();
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
     const [displayedText, setDisplayedText] = useState("");
     const [isGenerating, setIsGenerating] = useState(true);
     const [initialText, setInitialText] = useState("");
     const [copied, setCopied] = useState(false);
+    const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+    const [showEditBtn, setShowEditBtn] = useState(false);
+    const [showInputField, setShowInputField] = useState<boolean | null>(false);
+    const [editingIndex, setEditingIndex] = useState(null);
+    const [editedQuestions, setEditedQuestions] = useState({});
+
     const typingSpeed = 30;
     const fullText = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore sit itaque tempora reprehenderit ipsa. Alias reiciendis suscipit sint magnam tempore tempora aliquid, excepturi nesciunt natus ratione laudantium omnis amet cupiditate!`
     const initialfullText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus omnis numquam vero ab laudantium odio non, eveniet exercitationem optio ea temporibus recusandae enim atque pariatur excepturi vel cupiditate, ipsa explicabo."
@@ -99,10 +107,25 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                 initial={{translateY:10, opacity:0}}
                 animate={{translateY:0, opacity:1}}
                 transition={{duration:0.5, delay:0.1}}
-                className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'
-            >
+                onMouseEnter={() => setShowEditBtn(true)}
+                onMouseLeave={() => setShowEditBtn(false)}
+                className='relative shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'
+            >   
                 <NameAvatar />
-                <div className='ml-5'>{id}</div>
+                {!showInputField && <div className='ml-5'>{title?.length > 0 ? title : id}</div>}
+                {showEditBtn && (
+                    <div onClick={() => setShowInputField(true)} className='cursor-pointer text-xs bg-[#1a1918] absolute bottom-[-10px] right-[-10px] flex items-center px-2 py-1 rounded-md'>
+                        <FaPencilAlt />
+                        <p className='ml-2'>Edit</p>
+                    </div>
+                )}
+                {showInputField && (
+                    <EditQuestion
+                        oldTitle={id} 
+                        setShowInputField={setShowInputField}
+                        action={ChatActons.setQuestionTitle}
+                    />
+                )}
             </motion.div>
 
             <motion.div
@@ -124,11 +147,36 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         initial={{translateY:10, opacity:0}}
                         animate={{translateY:0, opacity:1}}
                         transition={{duration:0.5, delay:0.1}}
-                        key={message.text + 1} 
-                        className='shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'
+                        key={message.text + 1}
+                        onMouseEnter={() => setHoverIndex(index)}
+                        onMouseLeave={() => setHoverIndex(null)}
+                        className='relative shadow-xl my-5 flex items-start rounded-xl py-2 px-3 bg-linear-to-b from-[#1a1918] to-[#1a1919] text-wrap text-left w-full h-max'
                     >
                         <NameAvatar />
-                        <div className='ml-5'>{message.text}</div>
+                        {editingIndex !== index && (
+                            <div className="ml-5">
+                                {editedQuestions[index] ? editedQuestions[index] : message.text}
+                            </div>
+                        )}
+                        {/* {editingIndex !== index && <div className='ml-5'>{editiedQuestion.length > 0 ? editiedQuestion : message.text}</div>} */}
+                        {index === hoverIndex &&  !editingIndex && (
+                            <div onClick={() => setEditingIndex(index)}  className='cursor-pointer text-xs bg-[#1a1918] absolute bottom-[-10px] right-[-10px] flex items-center px-2 py-1 rounded-lg'>
+                                <FaPencilAlt />
+                                <p className='ml-2'>Edit</p>
+                            </div>
+                        )}
+                        {editingIndex === index && (
+                            <EditQuestion
+                                oldTitle={message.text} 
+                                setShowInputField={setShowInputField}
+                                action={ChatActons.setEditiedQuestion}
+                                setEditingIndex={setEditingIndex}
+                                onSave={(newText) => {
+                                    setEditedQuestions((prev) => ({ ...prev, [index]: newText }));
+                                    setEditingIndex(null);
+                                }}
+                            />
+                        )}
                     </motion.div>
                 ) : (
                     <motion.div
@@ -140,10 +188,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         <div  className='text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
                             <CodeSnippet />
                             {index === chatHistory.length - 1 ? displayedText : message.text}
-                            {index === chatHistory.length - 1 && !isGenerating ? (
-                                <FeedbackBox  handleCopied={handleCopied} copied={copied}/>
-                                ) :
-                            ""}
+                            {index === chatHistory.length - 1 && !isGenerating ? (<FeedbackBox  handleCopied={handleCopied} copied={copied}/>) : ""}
                         </div>
                     </motion.div>
                 )

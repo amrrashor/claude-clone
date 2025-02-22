@@ -116,7 +116,7 @@ const Chat = () => {
                                     initial={{opacity:0, translateY:-10}}
                                     animate={{opacity:1, translateY:0}}
                                     exit={{opacity:0, translateY:0}}
-                                    className='p-1 bg-[#323131] rounded-lg shadow-lg absolute w-[150px] top-10 list-none text-left'
+                                    className='z-10 p-1 bg-[#323131] rounded-lg shadow-lg absolute w-[150px] top-10 list-none text-left'
                                 >
                                     <li onClick={() => {setShowRenameModal(true); setTitleOptions(false)}} className='rounded-md mb-2 p-1 cursor-pointer text-sm m-1 hover:bg-[#3d3d3a] duration-150'>Rename</li>
                                     <li onClick={() => {setShowDeleteModal(true); setTitleOptions(false)}} className='rounded-md p-1 cursor-pointer text-sm m-1 hover:bg-[#3d3d3a] duration-150'>Delete</li>
