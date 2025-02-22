@@ -4,9 +4,14 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, isPinned:boolean}) => {
-    const {favouriteChat} = useSelector((state: any) => state.chat)
+    const {favouriteChat, title} = useSelector((state: any) => state.chat);
+    const navigate = useNavigate()
+    const navigateToChat = () => {
+        navigate(`/chat/${title}`)
+    }
     return (
         <div className="z-50 h-5/12">
             <div className='flex justify-between items-center w-full'>
@@ -31,10 +36,13 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
 
             <div className="mt-5">
                 <h4 className="font-bold mb-3">Recents</h4>
-                <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />How to make a function call...</div>
-                <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />How to make a function call...</div>
-                <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />How to make a function call...</div>
-                <div className="text-sm font-bold flex items-center">View All <FaArrowRightLong className="ml-2 text-xs" /></div>
+                {title && ( 
+                    <div onClick={navigateToChat} className="flex items-center mb-3 cursor-pointer ">
+                        <IoChatbubblesOutline className="mr-2" />
+                        {title}
+                    </div>
+                )}
+                {title && <div className="text-sm font-bold flex items-center cursor-pointer">View All <FaArrowRightLong className="ml-2 text-xs" /></div>}
             </div>
 
             <div className=" text-center w-full flex justify-end flex-col h-full">

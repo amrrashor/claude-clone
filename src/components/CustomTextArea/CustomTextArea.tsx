@@ -5,6 +5,7 @@ import { spring } from 'motion';
 import { useDispatch, useSelector } from 'react-redux';
 import ChatSlice from '../../store/Chat/Chat.slice';
 import { useNavigate } from 'react-router';
+import ResponseStyle from '../ResponseStyle/ResponseStyle';
 const CustomTextArea = () => {
     const {title} = useSelector((state:any) => state.chat);
     const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const CustomTextArea = () => {
         <div className='flex justify-between items-center'>
             <div className='text-left text-[rgba(255,255,255,0.5)] flex  items-start'>
                 <p>Claude 3.5 Sonnet</p>
+                <ResponseStyle />
             </div>
         {showLabels && (
             <motion.p

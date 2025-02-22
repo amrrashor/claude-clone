@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaChevronDown } from "react-icons/fa";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import Loader from "../../components/Loader/Loader";
+import ResponseStyle from "../../components/ResponseStyle/ResponseStyle";
 const Chat = () => {
     const dispatch = useDispatch();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -182,15 +183,15 @@ const Chat = () => {
                         </div>
                         
                         {showLabels && (
-                                <motion.button 
-                                    initial={{opacity:0, scale:0}}
-                                    animate={{opacity:1, scale:1}}
-                                    transition={spring}
-                                    className='cursor-pointer rounded-xl p-1 w-[32px] h-[32px]  bg-[#da7756] flex justify-center items-center'
-                                    onClick={handleSubmit}
-                                >
-                                    <FaArrowUp className='text-white text-center' />
-                                </motion.button>
+                            <motion.button 
+                                initial={{opacity:0, scale:0}}
+                                animate={{opacity:1, scale:1}}
+                                transition={spring}
+                                className='cursor-pointer rounded-xl p-1 w-[32px] h-[32px]  bg-[#da7756] flex justify-center items-center'
+                                onClick={handleSubmit}
+                            >
+                                <FaArrowUp className='text-white text-center' />
+                            </motion.button>
                         )}
                     </div>
                     <textarea
@@ -208,7 +209,10 @@ const Chat = () => {
                             }
                         }}
                     />
-                    <div className="w-1/2 mr-auto text-left mt-auto text-[rgba(255,255,255,0.6)]">Claude 3.5 Sonnet</div>
+                    <div className="flex">
+                        <div className=" mr-2 text-left text-[rgba(255,255,255,0.6)]">Claude 3.5 Sonnet</div>
+                        <ResponseStyle position="" />
+                    </div>
                 </div>
             </Container>
         </>
