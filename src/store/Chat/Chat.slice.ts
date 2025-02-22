@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 type chatSliceProps = {
     title: string;
     chatControl:boolean;
@@ -11,9 +9,7 @@ const initialState:chatSliceProps = {
     title:"",
     chatControl:false,
     codeWindow:false,
-
 };
-
 
 const ChatSlice = createSlice({
     name:"Chatslice",
@@ -36,5 +32,4 @@ const ChatSlice = createSlice({
 
 
 export const ChatActons = ChatSlice.actions;
-
 export default ChatSlice;
