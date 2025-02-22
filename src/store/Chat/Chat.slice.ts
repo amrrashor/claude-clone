@@ -6,7 +6,8 @@ type chatSliceProps = {
     codeWindow: boolean;
     favouriteChat:string;
     editiedQuestion: string;
-    reGenerate:boolean;
+    reGenerateInitial:boolean;
+    reGenerateSecondary:boolean;
 }
 const initialState:chatSliceProps = {
     title:"",
@@ -14,7 +15,9 @@ const initialState:chatSliceProps = {
     codeWindow:false,
     favouriteChat:"",
     editiedQuestion:"",
-    reGenerate:false,
+    reGenerateInitial:false,
+    reGenerateSecondary:false,
+
 };
 
 const ChatSlice = createSlice({
@@ -37,7 +40,10 @@ const ChatSlice = createSlice({
             state.editiedQuestion = action.payload;
         },
         reGenerateText(state, action) {
-            state.reGenerate = action.payload;
+            state.reGenerateInitial = action.payload;
+        },
+        reGenerateSecondary(state, action) {
+            state.reGenerateSecondary = action.payload;
         },
         reset() {
             initialState

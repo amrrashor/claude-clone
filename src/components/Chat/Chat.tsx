@@ -16,7 +16,7 @@ interface Message {
 
 const ChatComponent = ({ messages }: { messages: string[] }) => {
     const dispatch = useDispatch();
-    const { title, reGenerate} = useSelector((state: any) => state.chat);
+    const { title, reGenerateSecondary,reGenerateInitial} = useSelector((state: any) => state.chat);
     const { id } = useParams();
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
     const [displayedText, setDisplayedText] = useState("");
@@ -54,9 +54,43 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
         }
     }, [messages]);
     
-    
-    //useEffect for any other text generating
     useEffect(() => {
+        handleLaterGeneration();
+    }, [chatHistory]);
+    
+    useEffect(() => {
+        handleInitialGeneration();
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (reGenerateInitial) {
+            setIsGenerating(true);
+            setInitialText("");
+            handleInitialGeneration();
+            dispatch(ChatActons.reGenerateText(false));
+        } else if (reGenerateSecondary){
+            setIsGenerating(true);
+            setDisplayedText("");
+            handleLaterGeneration();
+            dispatch(ChatActons.reGenerateSecondary(false));
+        }
+    }, [reGenerateInitial, reGenerateSecondary])
+
+    const handleInitialGeneration = () => {
+        let index = 0
+        const interval = setInterval(() => {
+            if (index < initialfullText.length) {
+                setInitialText(prev => prev + initialfullText[index])
+                index++
+            } else {
+                clearInterval(interval);
+                setIsGenerating(false)
+            }
+        }, typingSpeed);
+        return () => clearInterval(interval);
+    }
+    
+    const handleLaterGeneration = () => {
         const lastMessage = chatHistory[chatHistory.length - 1];
         if (lastMessage && !lastMessage.isUser) {
             let index = 0;
@@ -73,24 +107,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
 
             return () => clearInterval(interval);
         }
-    }, [chatHistory]);
-    
-    //useEffect for initial text only
-    useEffect(() => {
-        let index = 0
-        const interval = setInterval(() => {
-            if (index < initialfullText.length) {
-                setInitialText(prev => prev + initialfullText[index])
-                index++
-            } else {
-                clearInterval(interval);
-                setIsGenerating(false)
-            }
-        }, typingSpeed);
-        return () => clearInterval(interval);
-        
-    }, [dispatch]);
-    
+    }
     const handleCopied = async () => {
         const textToCopy = chatHistory?.length > 0 ? displayedText : initialText
         try {
@@ -101,7 +118,6 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
             console.error("Failed to copy: ", err);
         }
     };
-
 
     return (
         <div className='w-3/4 mx-auto overflow-y-scroll max-h-[520px] h-3/4 scroll p-10'>
@@ -130,18 +146,20 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                 )}
             </motion.div>
 
-            <motion.div
-                initial={{translateY:10, opacity:0}}
-                animate={{translateY:0, opacity:1}}
-                transition={{duration:0.5, delay:0.5}}
-                className='relative text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'
-            >
-                <CodeSnippet />
-                {initialText}
-                {chatHistory?.length === 0 && !isGenerating ?  (
-                    <FeedbackBox handleCopied={handleCopied} copied={copied} />
-                ) : ""}
-            </motion.div>
+            {initialText && (
+                <motion.div
+                    initial={{translateY:10, opacity:0}}
+                    animate={{translateY:0, opacity:1}}
+                    transition={{duration:0.5, delay:0.5}}
+                    className='relative text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'
+                >
+                    <CodeSnippet />
+                    {initialText}
+                    {chatHistory?.length === 0 && !isGenerating ?  (
+                        <FeedbackBox isInitial={true} handleCopied={handleCopied} copied={copied} />
+                    ) : ""}
+                </motion.div>
+            )}
 
             {chatHistory.map((message, index) => (
                 message.isUser ? (
@@ -160,7 +178,6 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                                 {editedQuestions[index] ? editedQuestions[index] : message.text}
                             </div>
                         )}
-                        {/* {editingIndex !== index && <div className='ml-5'>{editiedQuestion.length > 0 ? editiedQuestion : message.text}</div>} */}
                         {index === hoverIndex &&  !editingIndex && (
                             <div onClick={() => setEditingIndex(index)}  className='cursor-pointer text-xs bg-[#1a1918] absolute bottom-[-10px] right-[-10px] flex items-center px-2 py-1 rounded-lg'>
                                 <FaPencilAlt />
@@ -181,18 +198,21 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         )}
                     </motion.div>
                 ) : (
-                    <motion.div
-                        initial={{translateY:10, opacity:0}}
-                        animate={{translateY:0, opacity:1}}
-                        transition={{duration:0.5, delay:0.5}}
-                        className='relative' key={message.text + 2}
-                    >
-                        <div  className='text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
-                            <CodeSnippet />
-                            {index === chatHistory.length - 1 ? displayedText : message.text}
-                            {index === chatHistory.length - 1 && !isGenerating ? (<FeedbackBox  handleCopied={handleCopied} copied={copied}/>) : ""}
-                        </div>
-                    </motion.div>
+                    displayedText && (
+                        <motion.div
+                            initial={{translateY:10, opacity:0}}
+                            animate={{translateY:0, opacity:1}}
+                            transition={{duration:0.5, delay:0.5}}
+                            className='relative' key={message.text + 2}
+                        >
+                            <div  className='text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
+                                <CodeSnippet />
+                                {index === chatHistory.length - 1 ? displayedText : message.text}
+                                {index === chatHistory.length - 1 && !isGenerating ? (<FeedbackBox isInitial={false}  handleCopied={handleCopied} copied={copied}/>) : ""}
+                            </div>
+                        </motion.div>
+                    )
+                    
                 )
             ))}
             <div className='flex items-center justify-between'>

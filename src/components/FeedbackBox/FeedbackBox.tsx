@@ -7,7 +7,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import { BiSolidLike } from "react-icons/bi";
 import { useDispatch } from 'react-redux';
 import { ChatActons } from '../../store/Chat/Chat.slice';
-const FeedbackBox = ({handleCopied, copied}: {handleCopied: any, copied:boolean}) => {
+const FeedbackBox = ({handleCopied, copied, isInitial}: {handleCopied: any, copied:boolean, isInitial}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState<boolean | null>(false);
     const [dislike, setDislike] = useState<boolean | null>(false);
@@ -22,8 +22,13 @@ const FeedbackBox = ({handleCopied, copied}: {handleCopied: any, copied:boolean}
     };
 
     const handleTextReGenerate = () => {
-        dispatch(ChatActons.reGenerateText(true));
-    }
+        if (isInitial) {
+            dispatch(ChatActons.reGenerateText(true));
+        } else {
+            dispatch(ChatActons.reGenerateSecondary(true));
+        }
+    };
+
     return (
         <div className='bg-[#3d3d3a] absolute bottom-[-10px] right-[-10px] flex items-center px-2 py-1 rounded-md'>
             {copied ? <IoMdCheckmark className='cursor-pointer text-sm text-white' /> : <FaRegClipboard onClick={handleCopied} className='cursor-pointer text-sm text-white' />}
