@@ -17,8 +17,6 @@ import ResponseStyle from "../../components/ResponseStyle/ResponseStyle";
 import { startScreenShare } from "../../helpers/helpers";
 const Chat = () => {
     const dispatch = useDispatch();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    
     const [showLabels, setShowLabels] = useState(false);
     const [userInput, setUserInput] = useState("");
     const [messages, setMessages] = useState<string[]>([]);
@@ -65,6 +63,7 @@ const Chat = () => {
     
     useEffect(() => {
         if(isLoadingQuestion) {
+            setMessages([]);
             let timer = setTimeout(() => {
                 setLoading(false);
                 dispatch(ChatActons.setIsloading(false));
@@ -98,7 +97,7 @@ const Chat = () => {
         setPreview(null); 
         setSelectedFile(null)
     };
-
+    console.log({messages})
     return (
         isLoading || isLoadingQuestion  ? <Loader />
         :

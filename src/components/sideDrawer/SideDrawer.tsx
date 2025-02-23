@@ -40,7 +40,7 @@ const SideDrawer = ({togglePinDrawer, isPinned, setShowModal}: {togglePinDrawer:
                 )}
             </div>
 
-            <div className="mt-5 h-full">
+            <div className="mt-5">
                 <h4 className="font-bold mb-3">Recents</h4>
                 {title && ( 
                     <div onClick={navigateToChat} className="flex items-center mb-3 cursor-pointer ">
@@ -50,13 +50,13 @@ const SideDrawer = ({togglePinDrawer, isPinned, setShowModal}: {togglePinDrawer:
                 )}
                 {title && <div className="text-sm font-bold flex items-center cursor-pointer">View All <FaArrowRightLong className="ml-2 text-xs" /></div>}
             </div>
-
-            <div className="mb-10 text-center w-full flex justify-end pb-20 flex-col h-full">
+            <div className="h-full"></div>
+            <div className="text-center w-full flex flex-col ">
                 <div className="bg-[#282727] w-10/12 text-xs p-[2px] mx-auto rounded-tl-lg rounded-tr-lg border border-solid border-[rgba(255,255,255,0.1)]">Free Plan</div>
                 <div className="bg-[#1a1918] rounded-lg p-2 border border-solid border-[rgba(255,255,255,0.1)]">amrbahy1996@gmail.com</div>
             </div>
 
-            <div className="flex justify-between items-end mt-1 text-xs">
+            <div className=" mt-1 flex justify-between items-end text-xs ">
                 <div className="text-white font-bold tracking-tighter">AA</div>
                 <div className="font-bold flex justify-center items-center">
                     <FaRegQuestionCircle className="mr-1" />
