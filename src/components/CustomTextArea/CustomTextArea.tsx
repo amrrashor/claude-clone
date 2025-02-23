@@ -57,7 +57,7 @@ const CustomTextArea = ({setShowModal, setChatHistory}: {setShowModal?: any, set
         />
         <div className='flex justify-between items-center'>
             <div className='text-left text-[rgba(255,255,255,0.5)] flex  items-start'>
-                <p>Claude 3.5 Sonnet</p>
+                <p className='text-xs md:text-sm'>Claude 3.5 Sonnet</p>
                 <ResponseStyle position='bottom' />
             </div>
         {showLabels && (
@@ -65,9 +65,9 @@ const CustomTextArea = ({setShowModal, setChatHistory}: {setShowModal?: any, set
                 initial={{opacity:0, scale:0}}
                 animate={{opacity:1, scale:1}}
                 transition={spring}
-                className='text-xs text-left text-[rgba(255,255,255,0.5)] font-bold'
+                className='hidden md:block text-xs text-left text-[rgba(255,255,255,0.5)] font-bold'
             >
-                Use <span className='px-1 py-[2px] bg-[#282727] rounded-[6px]'>shift + return</span> for new line
+                Use <span className=' px-1 py-[2px] bg-[#282727] rounded-[6px]'>shift + return</span> for new line
             </motion.p>
         )}
         </div>

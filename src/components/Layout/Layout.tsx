@@ -88,7 +88,7 @@ const Layout = ({children} : {children:any}) => {
             </div>
 
             {!showSideDrawer && (
-                <div className="fixed bottom-7 left-5">
+                <div className="hidden lg:hidden xl:blockfixed bottom-7 left-5">
                     <NameAvatar className="mb-3" />
                     <BsLayoutSidebar className="ml-[7px]"  />
                 </div>

@@ -75,44 +75,85 @@ const CodeWindow = () => {
     };
     
     return (
-        <motion.div
-            initial={{opacity:0, translateX:10}}
-            animate={{opacity:1, translateX:0}}
-            exit={{opacity:0, translateX:0}}
-            transition={{duration:0.5, type:'tween'}}
-            className=' scroll-smooth mt-10 rounded-lg bg-[#3d3d3a] w-4/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
-        >
-            <div className='flex justify-between items-center py-1 px-3'>
-                <div className='flex items-center'>
-                    <div onClick={handleShowChatControl} className='text-xl cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
-                        <FaArrowLeftLong />
+        <>
+            <motion.div
+                initial={{opacity:0, translateX:10}}
+                animate={{opacity:1, translateX:0}}
+                exit={{opacity:0, translateX:0}}
+                transition={{duration:0.5, type:'tween'}}
+                className='hidden md:block mt scroll-smooth mt-10 rounded-lg bg-[#3d3d3a] w-4/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
+            >
+                <div className='flex justify-between items-center py-1 px-3'>
+                    <div className='flex items-center'>
+                        <div onClick={handleShowChatControl} className='text-xl cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                            <FaArrowLeftLong />
+                        </div>
+                        <h4 className='ml-2'>{chatTitle.substring(0,30)}</h4>
                     </div>
-                    <h4 className='ml-2'>{chatTitle.substring(0,30)}</h4>
-                </div>
-                <div onClick={closeMenu} className='text-xl cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
-                    <IoCloseSharp  />
-                </div>
-            </div>
-
-            <div className='bg-[#282c34] p-2 h-[550px] overflow-y-scroll' ref={codeContainerRef}>
-                <SyntaxHighlighter>
-                    {displayedCode}
-                </SyntaxHighlighter>
-            </div>
-
-            <div className='py-2 px-3 flex justify-between items-center'>
-                <div className='text-xs text-[rgba(255,255,255,0.4)]'>Last Editied 2 days ago</div>
-
-                <div className='flex items-center'>
-                    <div onClick={handleCopied} className='text-sm cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
-                        {copied ? <IoMdCheckmark  /> : <FaRegClipboard />}
+                    <div onClick={closeMenu} className='text-xl cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                        <IoCloseSharp  />
                     </div>
-                    <div onClick={handleDownload} className='text-sm cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
-                        <BsDownload />
-                    </div>                    
                 </div>
-            </div>
-        </motion.div>
+
+                <div className='bg-[#282c34] p-2 h-[550px] overflow-y-scroll' ref={codeContainerRef}>
+                    <SyntaxHighlighter>
+                        {displayedCode}
+                    </SyntaxHighlighter>
+                </div>
+
+                <div className='py-2 px-3 flex justify-between items-center'>
+                    <div className='text-xs text-[rgba(255,255,255,0.4)]'>Last Editied 2 days ago</div>
+
+                    <div className='flex items-center'>
+                        <div onClick={handleCopied} className='text-sm cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                            {copied ? <IoMdCheckmark  /> : <FaRegClipboard />}
+                        </div>
+                        <div onClick={handleDownload} className='text-sm cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                            <BsDownload />
+                        </div>                    
+                    </div>
+                </div>
+            </motion.div>
+
+            <motion.div
+                initial={{opacity:0, translateY:10}}
+                animate={{opacity:1, translateY:0}}
+                exit={{opacity:0, translateY:0}}
+                transition={{duration:0.5, type:'tween'}}
+                className=' fixed bottom-4 h-9/12 z-20 block md:hidden mt scroll-smooth mt-10 rounded-lg bg-[#3d3d3a] w-10/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
+                >
+                <div className='flex justify-between items-center py-1 px-3'>
+                    <div className='flex items-center'>
+                        <div onClick={handleShowChatControl} className='text-xl cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                            <FaArrowLeftLong />
+                        </div>
+                        <h4 className='ml-2'>{chatTitle.substring(0,30)}</h4>
+                    </div>
+                    <div onClick={closeMenu} className='text-xl cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                        <IoCloseSharp  />
+                    </div>
+                </div>
+
+                <div className='bg-[#282c34] p-2 h-[550px] overflow-y-scroll' ref={codeContainerRef}>
+                    <SyntaxHighlighter>
+                        {displayedCode}
+                    </SyntaxHighlighter>
+                </div>
+
+                <div className='py-2 px-3 flex justify-between items-center'>
+                    <div className='text-xs text-[rgba(255,255,255,0.4)]'>Last Editied 2 days ago</div>
+
+                    <div className='flex items-center'>
+                        <div onClick={handleCopied} className='text-sm cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                            {copied ? <IoMdCheckmark  /> : <FaRegClipboard />}
+                        </div>
+                        <div onClick={handleDownload} className='text-sm cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md'>
+                            <BsDownload />
+                        </div>                    
+                    </div>
+                </div>
+            </motion.div>
+        </>
     )
 }
 

@@ -37,7 +37,7 @@ const ResponseStyle = ({position}: {position:string}) => {
                 <motion.div
                     initial={{translateY:10}}
                     animate={{translateY:0}}
-                    className={`${position == "bottom" ? "bottom-[-180px]" : "top-[-90px] lg:top-[-100px]" }  absolute bg-[#282727] p-2 lg:p-5 rounded-md`}
+                    className={`${position == "bottom" ? "bottom-[-140px] md:bottom-[-180px]" : "top-[-90px] lg:top-[-100px]" }  absolute bg-[#282727] p-2 lg:p-5 rounded-md`}
                 >
                     <h4 className="text-xs text-left lg:text-[16px] font-semibold">How should Claude write responses?</h4>
                     <div className="flex items-center">
