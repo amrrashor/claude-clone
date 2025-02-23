@@ -1,13 +1,8 @@
 import { useState } from "react";
-import SideDrawer from "../SideDrawer/SideDrawer"
+import SideDrawer from "../SideDrawer/SideDrawer";
 import { BsLayoutSidebar } from "react-icons/bs";
 import NameAvatar from "../NameAvatar/NameAvatar";
 import { useLocation, useNavigate } from "react-router";
-import {motion} from 'motion/react';
-import { FaRegStar } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
-import { HiOutlineAdjustmentsVertical } from "react-icons/hi2";
-import { PiChatTeardropText } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatActons } from "../../store/Chat/Chat.slice";
 import ChatControl from "../ChatControl/ChatControl";
