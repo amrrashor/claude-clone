@@ -117,8 +117,8 @@ const Chat = () => {
             <Container extraClasses="relative lg:p-4 h-[90vh] sm:mt-3 mt-0">
                 <div>
                         <div className="flex items-center justify-center text-lg text-white font-bold relative">
-                            <IoChatbubblesOutline className="mr-3" />
-                            <div onClick={() => setTitleOptions(!titleOptions)} className="duration-200 flex items-center hover:bg-[#3d3d3a] px-1 rounded-sm cursor-pointer">
+                            <IoChatbubblesOutline className="mr-3 md:mb-4 " />
+                            <div onClick={() => setTitleOptions(!titleOptions)} className="duration-200 flex items-center hover:bg-[#3d3d3a] px-1 md:mb-4 rounded-sm cursor-pointer">
                                 <span>Answering the {title.substring(0,15)}</span>
                                 <FaChevronDown className={`ml-2 ${titleOptions ? "rotate-180" : ""}`} />
                             </div>
@@ -137,7 +137,7 @@ const Chat = () => {
                     <ChatComponent messages={messages} />
                 </div>
                 
-                <div className="w-full lg:w-8/12 absolute bottom-0 left-0 md:left-10 right-0 md:right-10 z-20 shadow-2xl h-[125px] mx-auto bg-[#3d3d3a] p-3 rounded-2xl">
+                <div className="w-full md:w-8/12 absolute bottom-0 left-0 md:left-10 right-0 md:right-10 z-20 shadow-2xl h-[125px] mx-auto bg-[#3d3d3a] p-3 rounded-2xl">
                     <>
                         {preview ? (
                                 <motion.div

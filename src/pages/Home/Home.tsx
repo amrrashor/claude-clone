@@ -37,24 +37,24 @@ const Home = () => {
                 <Loader />
             ) : (
                 <Container extraClasses='mt-10'>
-                    <div className='text-xs font-bold w-3/12 mx-auto border border-solid border-[rgba(255,255,255,0.1)] rounded-2xl py-2 px-1 shadow-2xl mb-10'>
+                    <div className='text-xs font-bold w-9/12 md:w-3/12 mx-auto border border-solid border-[rgba(255,255,255,0.1)] rounded-2xl py-2 px-1 shadow-2xl mb-10'>
                         Using Limited Free Plan <a className='text-violet-400'>Upgrade</a>
                     </div>
 
-                    <h1 className='mb-10 text-5xl font-medium flex justify-center items-center'>
+                    <h1 className='mb-10 text-2xl md:text-5xl font-medium flex justify-center items-center'>
                         <motion.div
                             initial={{translateX:200}}
                             animate={{translateX:0}}
                             transition={{type:'spring', duration:1.5}}
                         >
-                            <SiClaude className='mr-3 text-[#da7756]' />
+                            <SiClaude className=' mr-3 text-[#da7756]' />
                         </motion.div>
                         <motion.span
                             initial={{opacity: 0}}
                             animate={{opacity: 1}}
                             transition={{duration: 0.5, delay:0.5}}
                         >
-                            {Greeting()}, Amr
+                            {Greeting()}, Mr. Cordelle
                         </motion.span>
                     </h1>
                     

@@ -5,8 +5,9 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-
-const SideDrawer = ({togglePinDrawer, isPinned, setShowModal, navigateToHome}: {navigateToHome:any,togglePinDrawer:() => void, isPinned:boolean, setShowModal:any}) => {
+import { IoCloseSharp } from "react-icons/io5";
+import {motion} from 'motion/react'
+const MobileDrawer = ({setShowModal, setMobileDrawer, navigateToHome}: {navigateToHome:any, setShowModal:any, setMobileDrawer:any}) => {
     const {favouriteChat, title} = useSelector((state: any) => state.chat);
     const navigate = useNavigate();
     const location = useLocation(); 
@@ -15,19 +16,25 @@ const SideDrawer = ({togglePinDrawer, isPinned, setShowModal, navigateToHome}: {
         const newPath = `/chat/${title}`;
         if (location.pathname !== newPath) {
             navigate(newPath);
+            setMobileDrawer(false)
         }
     };
     return (
-        <div className="z-50 h-5/12">
+        <motion.div
+            initial={{opacity:0, translateX:-10}}
+            animate={{opacity:1, translateX:0}}
+            exit={{opacity:0, translateX:-10}}
+            className="z-50 h-full fixed top-0 bottom-0 left-0 p-3 bg-[#1a1918] w-3/4"
+        >
             <div className='flex justify-between items-center w-full'>
-                <h5 onClick={navigateToHome} className='text-white text-lg cursor-pointer'>Claude</h5>
-                <div onClick={togglePinDrawer} className="hover:bg-[#1a1918] w-[35px] h-[35px] rounded-md duration-150 flex justify-center items-center cursor-pointer">
-                    <PiArrowLineRight  className={`${isPinned && "rotate-180"} duration-200 `} />
+                <h5 onClick={navigateToHome} className='text-white text-lg'>Claude</h5>
+                <div onClick={() => setMobileDrawer(false)} className="hover:bg-[#1a1918] w-[35px] h-[35px] rounded-md duration-150 flex justify-center items-center cursor-pointer">
+                    <IoCloseSharp   />
                 </div>
             </div>
 
             <button 
-                onClick={() => setShowModal(true)}
+                onClick={() => {setShowModal(true); setMobileDrawer(false)}}
                 className='cursor-pointer flex items-center text-[#da7756] text-lg px-3 py-1 bg-[#252423] w-full mt-5 rounded-lg'
             >
                 <PiChatTeardropText className='mr-3' />
@@ -55,8 +62,8 @@ const SideDrawer = ({togglePinDrawer, isPinned, setShowModal, navigateToHome}: {
                 )}
                 {title && <div className="text-sm font-bold flex items-center cursor-pointer">View All <FaArrowRightLong className="ml-2 text-xs" /></div>}
             </div>
-        </div>
+        </motion.div>
     )
 }
 
-export default SideDrawer
+export default MobileDrawer

@@ -14,7 +14,7 @@ const History = () => {
         navigate(`/chat/${id}`);
     }
     return (
-        <div className="mt-10 w-7/12 mx-auto">
+        <div className="mt-10 w-9/12 md:w-7/12 mx-auto">
             <div className="flex justify-between">
                 <h4 className="flex items-center">
                     <IoChatbubblesOutline className=" text-blue-500 mr-4" />

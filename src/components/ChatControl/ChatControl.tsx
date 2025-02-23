@@ -21,7 +21,7 @@ const ChatControl = () => {
                 animate={{opacity:1, translateX:0}}
                 exit={{opacity:0, translateX:10}}
                 transition={{duration:0.5, type:'spring', ease:'easeInOut'}}
-                className='hidden md:block mt-10 p-4 rounded-lg bg-[#3d3d3a] w-4/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
+                className='hidden lg:block mt-10 p-4 rounded-lg bg-[#3d3d3a] w-4/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
             >
                 <div className='flex justify-between items-center'>
                     <h4 className='font-bold text-xl text-white'>Chat control</h4>
@@ -87,7 +87,7 @@ const ChatControl = () => {
                 animate={{opacity:1, translateY:0}}
                 exit={{opacity:0, translateY:10}}
                 transition={{duration:0.5, type:'spring', ease:'easeInOut'}}
-                className='fixed bottom-1 h-10/12 z-20 block md:hidden mt-10 p-4 rounded-lg bg-[#3d3d3a] w-10/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
+                className='fixed bottom-1 h-10/12 z-20 block lg:hidden mt-10 p-4 rounded-lg bg-[#3d3d3a] w-10/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
             >
                 <div className='flex justify-between items-center'>
                     <h4 className='font-bold text-xl text-white'>Chat control</h4>
