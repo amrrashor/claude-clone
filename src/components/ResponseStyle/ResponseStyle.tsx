@@ -30,16 +30,16 @@ const ResponseStyle = ({position}: {position:string}) => {
         <div>
             <div onClick={() => setShowMenu(!showMenu)} className="ml-2 text-[rgba(255,255,255,0.6)] flex items-center cursor-pointer duration-150 hover:bg-[#1a1918] rounded-md px-2">
                 <FaFeatherAlt />
-                <p className="mx-1">{defaultValue}</p>
+                <p className="mx-1 text-xs lg:text-sm">{defaultValue}</p>
                 <FaChevronDown className={`duration-150 ${showMenu ? "rotate-180" : ""}`} />
             </div>
             {showMenu && (
                 <motion.div
                     initial={{translateY:10}}
                     animate={{translateY:0}}
-                    className={`${position == "bottom" ? "bottom-[-180px]" : "top-[-100px]" }  absolute bg-[#282727] p-5 rounded-md`}
+                    className={`${position == "bottom" ? "bottom-[-180px]" : "top-[-90px] lg:top-[-100px]" }  absolute bg-[#282727] p-2 lg:p-5 rounded-md`}
                 >
-                    <h4 className="text-[16px] font-semibold">How should Claude write responses?</h4>
+                    <h4 className="text-xs text-left lg:text-[16px] font-semibold">How should Claude write responses?</h4>
                     <div className="flex items-center">
                         <div className="rounded-md list-none text-left duration-150 mt-2 w-full">
                             {styles?.map((style) => (

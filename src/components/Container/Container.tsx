@@ -16,7 +16,7 @@ const Container = ({children, extraClasses, initial, animate, exit, transition}:
             animate={animate}
             exit={exit}
             transition={transition}
-            className={`${extraClasses} mx-auto w-3/4 text-center`}
+            className={`${extraClasses} mx-auto w-full lg:w-3/4 text-center`}
         >
             {children}
         </motion.div>

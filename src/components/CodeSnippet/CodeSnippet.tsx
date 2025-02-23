@@ -17,8 +17,8 @@ const CodeSnippet = () => {
                 <IoCodeSlash className='text-xl' />
             </div>
             <div className='bg-[#282727] h-16 flex flex-col justify-center p-4 rounded-br-xl rounded-tr-xl  border border-solid border-[rgba(255,255,255,0.2)]'>
-                <p className='font-bold text-sm text-white'>Data Validation Utility function</p>
-                <p className='text-[rgba(255,255,255,0.7)] text-sm'>Click to open code</p>
+                <p className='font-bold text-xs md:text-sm text-white'>Data Validation Utility function</p>
+                <p className='text-[rgba(255,255,255,0.7)] text-xs md:text-sm'>Click to open code</p>
             </div>
         </div>
     )

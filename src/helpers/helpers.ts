@@ -64,3 +64,6 @@ export const fullCode =
         }
     return result;
 }`;
+
+export const fullText = "In JavaScript, data validation functions play a crucial role in ensuring that user inputs meet specific requirements before processing. These functions check for correctness, completeness, and security, helping to prevent errors and vulnerabilities such as SQL injection or XSS attacks."
+export const initialfullText = "In JavaScript, data validation functions play a crucial role in ensuring that user inputs meet specific requirements before processing. These functions check for correctness, completeness, and security, helping to prevent errors and vulnerabilities such as SQL injection or XSS attacks."

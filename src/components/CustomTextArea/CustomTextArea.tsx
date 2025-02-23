@@ -32,7 +32,7 @@ const CustomTextArea = ({setShowModal, setChatHistory}: {setShowModal?: any, set
     };
 
     return (
-    <div className=' relative bg-[#323131] rounded-2xl p-3 pl-5 outline-0 w-3/5 h-[150px] mx-auto shadow-2xl border border-solid border-[rgba(255,255,255,0.1)]'>
+    <div className=' relative bg-[#323131] rounded-2xl p-2 md:pl-5 outline-0 w-4/5 md:w-3/5 h-[150px] mx-auto shadow-2xl border border-solid border-[rgba(255,255,255,0.1)]'>
         {showLabels && (
                 <motion.button 
                     initial={{opacity:0, scale:0}}

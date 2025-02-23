@@ -9,6 +9,7 @@ import CodeSnippet from '../CodeSnippet/CodeSnippet';
 import { FaPencilAlt } from "react-icons/fa";
 import EditQuestion from '../EditQuestion/EditQuestion';
 import { ChatActons } from '../../store/Chat/Chat.slice';
+import { fullText, initialfullText } from '../../helpers/helpers';
 interface Message {
     text: string;
     isUser: boolean;
@@ -30,10 +31,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
     const [showInputField, setShowInputField] = useState<boolean | null>(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [editedQuestions, setEditedQuestions] = useState({});
-
     const typingSpeed = 50;
-    const fullText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore sit itaque tempora reprehenderit ipsa. Alias"
-    const initialfullText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus omnis numquam vero ab laudantium odio non"
 
     useEffect(() => {
         if (messages.length === 0) return;
@@ -124,7 +122,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
     };
     
     return (
-        <div className='w-3/4 mx-auto overflow-y-scroll max-h-[520px] h-3/4 scroll p-10'>
+        <div className='w-full lg:w-3/4 mx-auto overflow-y-scroll  max-h-[520px] h-3/4 scroll p-4 lg:p-10'>
             <motion.div
                 initial={{translateY:10, opacity:0}}
                 animate={{translateY:0, opacity:1}}

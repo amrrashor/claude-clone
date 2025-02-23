@@ -13,7 +13,7 @@ interface handlerProps {
 }
 const ChatHandlers = ({selectedFile, preview, handleFileChange, removeUploadedItem}: handlerProps) => {
     return (
-        <div className=' duration-300 px-3 py-6 bg-[#282727] w-7/12 mx-auto h-max rounded-b-2xl flex flex-col items-start'>
+        <div className=' duration-300 px-2 md:px-3 py-6 bg-[#282727] w-9/12 md:w-7/12 mx-auto h-max rounded-b-2xl flex flex-col items-start'>
             <div className={`w-full flex items-end justify-between ${(preview && "mb-5" || selectedFile && "mb-5")} `}>
                 {selectedFile ? <div className='text-xs font-semibold'></div> : <div className='text-xs font-semibold text-left'>Collaborate with Claude using documents, images, and more</div>}
                     <div className='text-[19px] flex items-center'>

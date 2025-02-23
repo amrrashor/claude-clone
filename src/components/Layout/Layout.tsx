@@ -11,16 +11,15 @@ import { PiChatTeardropText } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatActons } from "../../store/Chat/Chat.slice";
 import ChatControl from "../ChatControl/ChatControl";
-import { useNavigate } from "react-router";
 import CodeWindow from "../CodeWindow/CodeWindow";
 import NewChatModal from "../NewChatModal/NewChatModal";
-import { IoIosMenu } from "react-icons/io";
+import { TbMenu4 } from "react-icons/tb";
+import ChatHeader from "../ChatHeader/ChatHeader";
 const Layout = ({children} : {children:any}) => {
     const location  = useLocation()
     const chatPageIndicator = location.pathname.split("/")[1];
     const currentChat = location.pathname.split("/")[2];
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const {chatControl, codeWindow} = useSelector((state:any) => state.chat)
     const [showSideDrawer, setShowSideDrawer] = useState(false);
@@ -58,28 +57,22 @@ const Layout = ({children} : {children:any}) => {
             />
 
             <div className="flex justify-between pt-2">
-                <div className=" text-white text-lg">Claude</div>
+                <div className=" text-white text-lg flex items-center">
+                    <div className="mr-2 xl:hidden hover:bg-[#1a1918] w-[35px] h-[35px] rounded-md duration-150 flex justify-center items-center cursor-pointer">
+                        <TbMenu4 className="text-xl" />
+                    </div>
+                    Claude
+                </div>
                 {chatPageIndicator && (
-                    <motion.div
-                        className="flex items-center text-xl"
-                        initial={{opacity:0, scale:0.9}}
-                        animate={{opacity:1, scale:1}}
-                        exit={{opacity:0, scale:0.9}}
-                        transition={{duration:0.5, delay:0.1, type:'spring'}}
-                    >
-                        <div onClick={handleFavorites} className="ml-5 cursor-pointer w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md">
-                            {starred ? <FaStar fill="#da7756" /> : <FaRegStar />}
-                        </div>
-                        <div onClick={handleOpenControl} className={`${chatControl ? "bg-[#1a1918]" : ""} cursor-pointer ml-5 w-[35px] h-[35px] hover:bg-[#1a1918] duration-150 flex justify-center items-center rounded-md`}>
-                            <HiOutlineAdjustmentsVertical />
-                        </div>
-                        <div onClick={() => setShowModal(true)} className="bg-[#da7756] cursor-pointer rounded-full w-[35px] h-[35px] flex justify-center items-center ml-5">
-                            <PiChatTeardropText /> 
-                        </div>
-                    </motion.div>
+                    <ChatHeader
+                        chatControl={chatControl}
+                        setShowModal={setShowModal}
+                        starred={starred}
+                        handleFavorites={handleFavorites}
+                        handleOpenControl={handleOpenControl}
+                    />
                 )}
             </div>
-            
             
             <div
                 onMouseLeave={() => !isPinned && setShowSideDrawer(false)}
@@ -88,12 +81,12 @@ const Layout = ({children} : {children:any}) => {
                 <SideDrawer setShowModal={setShowModal} togglePinDrawer={togglePinDrawer} isPinned={isPinned} />
             </div>
 
-
             <div className="flex justify-center items-start">
                 {children}
                 {chatControl && <ChatControl />}
                 {codeWindow && <CodeWindow />}
             </div>
+
             {!showSideDrawer && (
                 <div className="fixed bottom-7 left-5">
                     <NameAvatar className="mb-3" />

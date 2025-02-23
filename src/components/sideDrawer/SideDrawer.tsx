@@ -4,14 +4,19 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const SideDrawer = ({togglePinDrawer, isPinned, setShowModal}: {togglePinDrawer:() => void, isPinned:boolean, setShowModal:any}) => {
     const {favouriteChat, title} = useSelector((state: any) => state.chat);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation(); 
+
     const navigateToChat = () => {
-        navigate(`/chat/${title}`)
-    }
+        const newPath = `/chat/${title}`;
+        if (location.pathname !== newPath) {
+            navigate(newPath);
+        }
+    };
     return (
         <div className="z-50 h-5/12">
             <div className='flex justify-between items-center w-full'>
@@ -32,7 +37,7 @@ const SideDrawer = ({togglePinDrawer, isPinned, setShowModal}: {togglePinDrawer:
             <div className='mt-5'>
                 <h4 className='mb-2 font-bold'>Starred</h4>
                 {favouriteChat ? (
-                    <div className="flex items-center mb-3"><IoChatbubblesOutline className="mr-2" />{favouriteChat?.substring(0,12)}</div>
+                    <div onClick={navigateToChat}  className="hover:bg-[#252423] rounded-md p-2 duration-150 flex items-center mb-3 cursor-pointer"><IoChatbubblesOutline className="mr-2" />{favouriteChat?.substring(0,12)}</div>
                 ) : (
                     <div className='flex justify-center items-center text-sm text-[rgba(255,255,255,0.5)] border border-dotted border-[rgba(255,255,255,0.1)] w-full h-[100px] rounded-lg'>
                         Star chats you use often
@@ -43,7 +48,7 @@ const SideDrawer = ({togglePinDrawer, isPinned, setShowModal}: {togglePinDrawer:
             <div className="mt-5">
                 <h4 className="font-bold mb-3">Recents</h4>
                 {title && ( 
-                    <div onClick={navigateToChat} className="flex items-center mb-3 cursor-pointer ">
+                    <div onClick={navigateToChat} className="hover:bg-[#252423] rounded-md p-2 duration-150 flex items-center mb-3 cursor-pointer ">
                         <IoChatbubblesOutline className="mr-2" />
                         {title?.substring(0,12)}
                     </div>
