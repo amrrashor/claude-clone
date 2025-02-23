@@ -20,9 +20,9 @@ const NewChatModal = ({ showModal, setShowModal }: { showModal?: boolean; setSho
 
     return (
         showModal && (
-            <div className="bg-[rgba(0,0,0,0.5)] fixed inset-0 z-[60] flex justify-center items-center">
+            <div className="bg-[rgba(0,0,0,0.8)] fixed inset-0 z-[60] flex justify-center items-center">
                 <div ref={modalRef} className="w-3/4">
-                    <InputField className="w-full" />
+                    <InputField className="w-full" setShowModal={setShowModal} />
                 </div>
             </div>
         )

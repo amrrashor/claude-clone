@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatSlice from '../../store/Chat/Chat.slice';
 import { useNavigate } from 'react-router';
 import ResponseStyle from '../ResponseStyle/ResponseStyle';
-const CustomTextArea = () => {
+const CustomTextArea = ({setShowModal}: {setShowModal?: any}) => {
     const {title} = useSelector((state:any) => state.chat);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,7 +25,9 @@ const CustomTextArea = () => {
 
     const handleSubmit = () => {
         if (title.trim()) {
+            setShowModal(false);
             navigate(`/chat/${title}`);
+            dispatch(ChatSlice.actions.setIsloading(true));
         }
     };
 

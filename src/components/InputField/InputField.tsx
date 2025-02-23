@@ -3,7 +3,7 @@ import CustomTextArea from '../CustomTextArea/CustomTextArea';
 import { useEffect, useState } from "react";
 import ChatHandlers from "../ChatHandlers/ChatHandlers";
 
-const InputField = ({className, ref}: {className?:string, ref?:any}) => {
+const InputField = ({className, ref, setShowModal}: {className?:string, ref?:any, setShowModal?:any}) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     useEffect(() => {
@@ -36,7 +36,7 @@ const InputField = ({className, ref}: {className?:string, ref?:any}) => {
             transition={{duration:0.3, delay:0.1}}
             className={className}
         >
-            <CustomTextArea />
+            <CustomTextArea setShowModal={setShowModal} />
             <ChatHandlers 
                 preview={preview}
                 selectedFile={selectedFile}

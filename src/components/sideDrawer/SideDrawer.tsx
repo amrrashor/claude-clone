@@ -6,7 +6,7 @@ import { FaRegQuestionCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
-const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, isPinned:boolean}) => {
+const SideDrawer = ({togglePinDrawer, isPinned, setShowModal}: {togglePinDrawer:() => void, isPinned:boolean, setShowModal:any}) => {
     const {favouriteChat, title} = useSelector((state: any) => state.chat);
     const navigate = useNavigate()
     const navigateToChat = () => {
@@ -21,7 +21,13 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
                 </div>
             </div>
 
-            <button className='cursor-pointer flex items-center text-[#da7756] text-lg px-3 py-1 bg-[#252423] w-full mt-5 rounded-lg'><PiChatTeardropText className='mr-3' /> Start New Chat</button>
+            <button 
+                onClick={() => setShowModal(true)}
+                className='cursor-pointer flex items-center text-[#da7756] text-lg px-3 py-1 bg-[#252423] w-full mt-5 rounded-lg'
+            >
+                <PiChatTeardropText className='mr-3' />
+                Start New Chat
+            </button>
 
             <div className='mt-5'>
                 <h4 className='mb-2 font-bold'>Starred</h4>
@@ -34,18 +40,18 @@ const SideDrawer = ({togglePinDrawer, isPinned}: {togglePinDrawer:() => void, is
                 )}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-5 h-full">
                 <h4 className="font-bold mb-3">Recents</h4>
                 {title && ( 
                     <div onClick={navigateToChat} className="flex items-center mb-3 cursor-pointer ">
                         <IoChatbubblesOutline className="mr-2" />
-                        {title}
+                        {title?.substring(0,12)}
                     </div>
                 )}
                 {title && <div className="text-sm font-bold flex items-center cursor-pointer">View All <FaArrowRightLong className="ml-2 text-xs" /></div>}
             </div>
 
-            <div className=" text-center w-full flex justify-end flex-col h-full">
+            <div className="mb-10 text-center w-full flex justify-end pb-20 flex-col h-full">
                 <div className="bg-[#282727] w-10/12 text-xs p-[2px] mx-auto rounded-tl-lg rounded-tr-lg border border-solid border-[rgba(255,255,255,0.1)]">Free Plan</div>
                 <div className="bg-[#1a1918] rounded-lg p-2 border border-solid border-[rgba(255,255,255,0.1)]">amrbahy1996@gmail.com</div>
             </div>

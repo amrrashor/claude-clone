@@ -29,7 +29,7 @@ const Chat = () => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean | null>(false);
     const [isLoading, setLoading] = useState<boolean | null>(true)
     const {id} = useParams();
-    const {title} = useSelector((state:any) => state.chat);
+    const {title, isLoading:isLoadingQuestion} = useSelector((state:any) => state.chat);
     
     useEffect(() => {
         document.title = id;
@@ -55,14 +55,24 @@ const Chat = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        let timer;
-
-        timer = setTimeout(() => {
-            setLoading(false)
+        let timer = setTimeout(() => {
+            setLoading(false);
+            dispatch(ChatActons.setIsloading(false));
         }, 500);
-
+    
         return () => clearTimeout(timer);
-    }, []);
+    }, [dispatch]);
+    
+    useEffect(() => {
+        if(isLoadingQuestion) {
+            let timer = setTimeout(() => {
+                setLoading(false);
+                dispatch(ChatActons.setIsloading(false));
+            }, 500);
+        
+            return () => clearTimeout(timer);
+        }
+    }, [dispatch, isLoadingQuestion]);
 
     const handleSubmit = () => {
         if (userInput.trim()) {
@@ -90,7 +100,7 @@ const Chat = () => {
     };
 
     return (
-        isLoading ? <Loader />
+        isLoading || isLoadingQuestion  ? <Loader />
         :
         <>
             <CustomModal

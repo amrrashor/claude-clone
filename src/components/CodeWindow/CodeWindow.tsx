@@ -5,12 +5,13 @@ import { ChatActons } from '../../store/Chat/Chat.slice';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useLocation, useParams } from 'react-router';
 import SyntaxHighlighter from '../SyntaxHighlighter/SyntaxHighlighter';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaRegClipboard } from "react-icons/fa6";
 import { BsDownload } from "react-icons/bs";
 import { IoMdCheckmark } from 'react-icons/io';
 import { fullCode } from '../../helpers/helpers';
 const CodeWindow = () => {
+    const intervalRef = useRef(null);
     const dispatch = useDispatch();
     const location  = useLocation();
     const [displayedCode, setDisplayedCode] = useState("");
@@ -25,20 +26,32 @@ const CodeWindow = () => {
         dispatch(ChatActons.setShowChatControl(true));
     };
 
+    const codeContainerRef = useRef(null);
+
     useEffect(() => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        
         let index = 0;
-        setDisplayedCode("");
-        const interval = setInterval(() => {
+        setDisplayedCode(""); 
+        
+        intervalRef.current = setInterval(() => {
             if (index < fullCode.length) {
-                setDisplayedCode((prev) => prev + fullCode[index]);
+                setDisplayedCode((prev) => {
+                    const updatedText = prev + fullCode[index];
+                    if (codeContainerRef.current) {
+                        codeContainerRef.current.scrollTop = codeContainerRef.current.scrollHeight;
+                    }
+                    return updatedText;
+                });
                 index++;
             } else {
-                clearInterval(interval);
+                clearInterval(intervalRef.current);
             }
-        }, 10);
+        }, 50);
 
-        return () => clearInterval(interval);
+            return () => clearInterval(intervalRef.current);
     }, []);
+
 
     const handleCopied = async () => {
         try {
@@ -54,7 +67,7 @@ const CodeWindow = () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "script.js"; // File name
+        a.download = "script.js";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -67,7 +80,7 @@ const CodeWindow = () => {
             animate={{opacity:1, translateX:0}}
             exit={{opacity:0, translateX:0}}
             transition={{duration:0.5, type:'tween'}}
-            className='mt-10 rounded-lg bg-[#3d3d3a] w-4/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
+            className=' scroll-smooth mt-10 rounded-lg bg-[#3d3d3a] w-4/12 border border-solid border-[rgba(255,255,255,0.1)] shadow-2xl'
         >
             <div className='flex justify-between items-center py-1 px-3'>
                 <div className='flex items-center'>
@@ -81,7 +94,7 @@ const CodeWindow = () => {
                 </div>
             </div>
 
-            <div className='bg-[#282c34] p-2 h-[550px] overflow-y-scroll'>
+            <div className='bg-[#282c34] p-2 h-[550px] overflow-y-scroll' ref={codeContainerRef}>
                 <SyntaxHighlighter>
                     {displayedCode}
                 </SyntaxHighlighter>

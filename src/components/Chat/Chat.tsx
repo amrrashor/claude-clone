@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import NameAvatar from '../NameAvatar/NameAvatar'
 import {motion} from'motion/react'
 import { SiClaude } from 'react-icons/si';
@@ -15,12 +15,14 @@ interface Message {
 }
 
 const ChatComponent = ({ messages }: { messages: string[] }) => {
+    const intervalRef = useRef(null);
+
     const dispatch = useDispatch();
     const { title, reGenerateSecondary,reGenerateInitial} = useSelector((state: any) => state.chat);
     const { id } = useParams();
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
     const [displayedText, setDisplayedText] = useState("");
-    const [isGenerating, setIsGenerating] = useState(true);
+    const [isGenerating,  setIsGenerating] = useState(true);
     const [initialText, setInitialText] = useState("");
     const [copied, setCopied] = useState(false);
     const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -29,9 +31,9 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
     const [editingIndex, setEditingIndex] = useState(null);
     const [editedQuestions, setEditedQuestions] = useState({});
 
-    const typingSpeed = 30;
-    const fullText = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore sit itaque tempora reprehenderit ipsa. Alias reiciendis suscipit sint magnam tempore tempora aliquid, excepturi nesciunt natus ratione laudantium omnis amet cupiditate!`
-    const initialfullText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus omnis numquam vero ab laudantium odio non, eveniet exercitationem optio ea temporibus recusandae enim atque pariatur excepturi vel cupiditate, ipsa explicabo."
+    const typingSpeed = 50;
+    const fullText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore sit itaque tempora reprehenderit ipsa. Alias"
+    const initialfullText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus omnis numquam vero ab laudantium odio non"
 
     useEffect(() => {
         if (messages.length === 0) return;
@@ -53,11 +55,11 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
             clearTimeout(chatTimer);
         }
     }, [messages]);
-    
+
     useEffect(() => {
         handleLaterGeneration();
     }, [chatHistory]);
-    
+
     useEffect(() => {
         handleInitialGeneration();
     }, [dispatch]);
@@ -77,6 +79,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
     }, [reGenerateInitial, reGenerateSecondary])
 
     const handleInitialGeneration = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current)
         let index = 0
         const interval = setInterval(() => {
             if (index < initialfullText.length) {
@@ -107,7 +110,8 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
 
             return () => clearInterval(interval);
         }
-    }
+    };
+    
     const handleCopied = async () => {
         const textToCopy = chatHistory?.length > 0 ? displayedText : initialText
         try {
@@ -118,7 +122,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
             console.error("Failed to copy: ", err);
         }
     };
-
+    
     return (
         <div className='w-3/4 mx-auto overflow-y-scroll max-h-[520px] h-3/4 scroll p-10'>
             <motion.div
@@ -145,21 +149,17 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                     />
                 )}
             </motion.div>
-
-            {initialText && (
-                <motion.div
-                    initial={{translateY:10, opacity:0}}
-                    animate={{translateY:0, opacity:1}}
-                    transition={{duration:0.5, delay:0.5}}
-                    className='relative text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'
-                >
-                    <CodeSnippet />
-                    {initialText}
-                    {chatHistory?.length === 0 && !isGenerating ?  (
-                        <FeedbackBox isInitial={true} handleCopied={handleCopied} copied={copied} />
-                    ) : ""}
-                </motion.div>
-            )}
+            <motion.div
+                initial={{translateY:10, opacity:0}}
+                animate={{translateY:0, opacity:1}}
+                transition={{duration:0.5, delay:0.5}}
+                className='relative text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'
+            >
+                <CodeSnippet />
+                {initialText}
+                {chatHistory?.length === 0 && !isGenerating ?  (<FeedbackBox isInitial={true} handleCopied={handleCopied} copied={copied} />) : ""}
+            </motion.div>
+            
 
             {chatHistory.map((message, index) => (
                 message.isUser ? (
@@ -198,12 +198,13 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         )}
                     </motion.div>
                 ) : (
-                    displayedText && (
                         <motion.div
+                            
                             initial={{translateY:10, opacity:0}}
                             animate={{translateY:0, opacity:1}}
                             transition={{duration:0.5, delay:0.5}}
-                            className='relative' key={message.text + 2}
+                            className='relative' 
+                            key={message.text + 2}
                         >
                             <div  className='text-left my-5 rounded-xl p-5 bg-[#3d3d3a] w-full h-max shadow-xl'>
                                 <CodeSnippet />
@@ -214,7 +215,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                     )
                     
                 )
-            ))}
+            )}
             <div className='flex items-center justify-between'>
                 <motion.div 
                     className="w-[30px] h-[30px]"
@@ -230,7 +231,15 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                 >
                     <SiClaude className=' absolute w-[30px] h-[30px] text-[#da7756] text-3xl' />
                 </motion.div>
-                {!isGenerating && <div className='underline text-white text-xs'>Claude can make mistakes. Please double-check responses.</div>}
+                {!isGenerating && 
+                <motion.div 
+                    className='underline text-white text-xs'
+                    initial={{opacity:0, translateX:10}}
+                    animate={{opacity:1, translateX:0}}
+                    exit={{opacity:0, translateX:0}}
+                >
+                    Claude can make mistakes. Please double-check responses.
+                </motion.div>}
             </div>
 
         </div>

@@ -21,7 +21,8 @@ export const  startScreenShare = async () => {
 }
 
 
-export const fullCode = `function validateAndTransformData(data, schema) {
+export const fullCode = 
+`function validateAndTransformData(data, schema) {
     // Input validation
     if (!data || typeof data !== 'object') {
         throw new Error('Data must be a valid object');
@@ -61,67 +62,5 @@ export const fullCode = `function validateAndTransformData(data, schema) {
         if (value === undefined && !fieldSchema.required) {
             continue;
         }
-
-        // Type validation
-        if (fieldSchema.type && typeof value !== fieldSchema.type) {
-            result.errors.push();
-            result.isValid = false;
-            result.metadata.invalidFields++;
-            continue;
-        }
-
-        // Range validation for numbers
-        if (fieldSchema.type === 'number' && (fieldSchema.min !== undefined || fieldSchema.max !== undefined)) {
-            if (fieldSchema.min !== undefined && value < fieldSchema.min) {
-                result;
-                result.isValid = false;
-                result.metadata.invalidFields++;
-                continue;
-            }
-            if (fieldSchema.max !== undefined && value > fieldSchema.max) {
-                result.errors.push();
-                result.isValid = false;
-                result.metadata.invalidFields++;
-                continue;
-            }
-        }
-
-        // String length validation
-        if (fieldSchema.type === 'string' && (fieldSchema.minLength !== undefined || fieldSchema.maxLength !== undefined)) {
-            if (fieldSchema.minLength !== undefined && value.length < fieldSchema.minLength) {
-                result.errors.push();
-                result.isValid = false;
-                result.metadata.invalidFields++;
-                continue;
-            }
-            if (fieldSchema.maxLength !== undefined && value.length > fieldSchema.maxLength) {
-                result.errors.push();
-                result.isValid = false;
-                result.metadata.invalidFields++;
-                continue;
-            }
-        }
-
-        // Custom validation function
-        if (fieldSchema.validate && typeof fieldSchema.validate === 'function') {
-            const isValid = fieldSchema.validate(value);
-            if (!isValid) {
-                result.errors.push();
-                result.isValid = false;
-                result.metadata.invalidFields++;
-                continue;
-            }
-        }
-
-        // Transform value if transformer function is provided
-        if (fieldSchema.transform && typeof fieldSchema.transform === 'function') {
-            result.transformedData[field] = fieldSchema.transform(value);
-        } else {
-            result.transformedData[field] = value;
-        }
-        
-        result.metadata.validFields++;
-    }
-
     return result;
 }`;

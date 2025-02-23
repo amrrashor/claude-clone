@@ -8,6 +8,7 @@ type chatSliceProps = {
     editiedQuestion: string;
     reGenerateInitial:boolean;
     reGenerateSecondary:boolean;
+    isLoading:boolean;
 }
 const initialState:chatSliceProps = {
     title:"",
@@ -17,6 +18,7 @@ const initialState:chatSliceProps = {
     editiedQuestion:"",
     reGenerateInitial:false,
     reGenerateSecondary:false,
+    isLoading:false,
 
 };
 
@@ -44,6 +46,9 @@ const ChatSlice = createSlice({
         },
         reGenerateSecondary(state, action) {
             state.reGenerateSecondary = action.payload;
+        },
+        setIsloading(state, action){
+            state.isLoading = action.payload;
         },
         reset() {
             initialState
