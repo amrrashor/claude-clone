@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SideDrawer from "../SideDrawer/SideDrawer";
+import SideDrawer from "../sideDrawer/SideDrawer";
 import { BsLayoutSidebar } from "react-icons/bs";
 import NameAvatar from "../NameAvatar/NameAvatar";
 import { useLocation, useNavigate } from "react-router";
