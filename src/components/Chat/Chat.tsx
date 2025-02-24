@@ -121,6 +121,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
         }
     };
     
+    console.log()
     return (
         <div className='w-full lg:w-3/4 mx-auto overflow-y-scroll  max-h-[520px] h-3/4 scroll p-4 lg:p-10'>
             <motion.div
@@ -144,6 +145,7 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                         oldTitle={id} 
                         setShowInputField={setShowInputField}
                         action={ChatActons.setQuestionTitle}
+                        reGenerateAction={ChatActons.reGenerateText}
                     />
                 )}
             </motion.div>
@@ -192,12 +194,12 @@ const ChatComponent = ({ messages }: { messages: string[] }) => {
                                     setEditedQuestions((prev) => ({ ...prev, [index]: newText }));
                                     setEditingIndex(null);
                                 }}
+                                reGenerateAction={editingIndex === index ? ChatActons.reGenerateSecondary : null}
                             />
                         )}
                     </motion.div>
                 ) : (
                         <motion.div
-                            
                             initial={{translateY:10, opacity:0}}
                             animate={{translateY:0, opacity:1}}
                             transition={{duration:0.5, delay:0.5}}

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {motion} from "motion/react"
 import { useState } from "react";
 import { ChatActons } from "../../store/Chat/Chat.slice";
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 interface customModalProps {
     modalTitle: string;
@@ -14,11 +14,12 @@ const CustomModal = ({modalTitle, isRename, showModal= false, setShowModal}:cust
     const dispatch = useDispatch();
     
     const navigate = useNavigate();
-    const {title} = useSelector((state:any) => state.chat);
+    const {editedTitle} = useSelector((state:any) => state.chat);
+    const {id} = useParams();
     const [chatTitle, setChatTitle] = useState<string | null>("")
 
     const handleTitleChange = () => {
-        dispatch(ChatActons.setQuestionTitle(chatTitle));
+        dispatch(ChatActons.setEditedTitle(chatTitle));
         setShowModal(false)
     };
     
@@ -41,8 +42,8 @@ const CustomModal = ({modalTitle, isRename, showModal= false, setShowModal}:cust
                         <input 
                             type="text" 
                             className="bg-[#323131] outline-none p-3 rounded-lg mb-3 w-full"
-                            value={chatTitle}
-                            placeholder={title}
+                            value={chatTitle ? chatTitle : id}
+                            placeholder={editedTitle ? editedTitle : id}
                             onChange={(e) => setChatTitle(e.target.value)}
                         />
                     ) : (

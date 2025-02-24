@@ -27,7 +27,7 @@ const Chat = () => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean | null>(false);
     const [isLoading, setLoading] = useState<boolean | null>(true)
     const {id} = useParams();
-    const {title, isLoading:isLoadingQuestion} = useSelector((state:any) => state.chat);
+    const {title, editedTitle, isLoading:isLoadingQuestion} = useSelector((state:any) => state.chat);
     
     useEffect(() => {
         document.title = id;
@@ -119,7 +119,7 @@ const Chat = () => {
                         <div className="flex items-center justify-center text-lg text-white font-bold relative">
                             <IoChatbubblesOutline className="mr-3 md:mb-4 " />
                             <div onClick={() => setTitleOptions(!titleOptions)} className="duration-200 flex items-center hover:bg-[#3d3d3a] px-1 md:mb-4 rounded-sm cursor-pointer">
-                                <span>Answering the {title.substring(0,15)}</span>
+                                <span>Answering the {editedTitle?.length > 0 ? editedTitle : id.substring(0,15)}</span>
                                 <FaChevronDown className={`ml-2 ${titleOptions ? "rotate-180" : ""}`} />
                             </div>
                             {titleOptions && (
